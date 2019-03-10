@@ -2,3 +2,14 @@ to_delete/
 html/
 fittingtest/
 *.orig
+DE_test/
+examples/
+reference/old/
+postprocessing/
+constraint_examples/
+pgraphs.m
+standalone/
+UDFs/
+views/
+rotate_labels/
+export_fig/
