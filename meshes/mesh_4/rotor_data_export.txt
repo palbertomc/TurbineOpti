@@ -1,0 +1,119 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; FLUENT journal file to export data to Matlab
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set batch options
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+file
+set-batch-options
+yes
+yes
+no
+q
+; Read in cas and data files
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+rc rotor.cas.gz
+rd rotor.dat.gz
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Generate 'reference' and 'result' data planes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+surface
+plane-surf-aligned
+reference
+inlet
+0
+0
+-0.037
+plane-surf-aligned
+result
+inlet
+0
+0
+0.0287
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Export TORQUE
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+report
+forces
+wall-moments
+n
+endwall
+rotor
+
+0
+0
+0
+0
+0
+1
+y
+torque
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Export INLET PRESSURE (total) and INLET DENSITY 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+surface-integrals
+area-weighted-avg
+inlet
+
+total-pressure
+y
+pressure
+area-weighted-avg
+inlet
+
+density
+y
+density
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; REFERENCE data
+; Pstat/Ptot/Vel-mag/Vel-ax/Vel-rad/Vel-tan/alpha/Hel
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+file
+export
+ascii
+reference
+reference
+
+y
+helicity
+velocity-angle
+tangential-velocity
+radial-velocity
+axial-velocity
+velocity-magnitude
+total-pressure
+pressure
+q
+y
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; RESULT data
+;Pstat/Ptot/Vel-mag/Vel-ax/Vel-rad/Vel-tan/Rel-Vel-mag ;/alpha/beta/Hel
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ascii
+result
+result
+
+y
+helicity
+relative-velocity-angle
+velocity-angle
+rel-velocity-magnitude
+tangential-velocity
+radial-velocity
+axial-velocity
+velocity-magnitude
+rel-total-pressure
+total-pressure
+pressure
+q
+y
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Exit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+exit
+y
