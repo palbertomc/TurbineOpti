@@ -1,4 +1,4 @@
-# TurbineOpti
+# TurbineOpti  <img align="right" src="images/streamlines_contoured_top.png" width="200" />
 A collection of Matlab scripts used for the kriging surrogate model assisted optimization of low speed turbine endwalls
 
 ## Introduction
