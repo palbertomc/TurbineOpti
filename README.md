@@ -9,13 +9,18 @@ This because of the computational expense associated with the simulation of the 
 Currently, the scripts are designed for used with the following 3rd party software:
 
 * Base geometry generation (Gambit)
-* Mesh generation (Ansys ICEMCFD)
-* CFD solver (Ansys Fluent)
+* Mesh generation (Ansys ICEMCFD Rel 12)
+* CFD solver (Ansys Fluent Rel 12)
 
-but it should not be difficult to subsitute alternative providers as required. The software has already been integrated with OpenFOAM but these scripts are not included at this stage. Please contact the author if you are interested in obtaining these. 
+but it should not be difficult to subsitute alternative providers as required. 
+
+The software has already been integrated with OpenFOAM but these scripts are not included at this stage. Please contact the author if you are interested in obtaining these. 
 
 ## Running the code
 The code can be run with a GUI or headlessly. Both start up scripts are included. 
+
+* `TurbineOpti.m -> GUI version`
+* `TurbineOpti_nogui.m -> headless version`
 
 ## Literature
 This code was used as the basis of the designs produced for:
@@ -27,3 +32,4 @@ _Bergh, J (2018) "On the Evaluation of Common Design Metrics for the Optimizatio
 
 ## Citation
 Citing this work:
+    `to be confirmed`
