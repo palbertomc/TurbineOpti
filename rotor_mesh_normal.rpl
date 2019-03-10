@@ -1,0 +1,664 @@
+###################################################################
+###################################################################
+# ICEMCFD v145 Script file to generate FV CFD mesh
+# for PEW generator
+#
+# J Bergh, 2012, rev.2013,2014
+###################################################################
+###################################################################
+# Import endwall.sat
+# Reset triangulation tolerance and regenerate surfaces
+###################################################################
+ic_run_application_exec . bin acistotin {-sat "./endwall.sat" -tin "./endwall.tin"  -onefamilyperbody }
+ic_load_tetin ./endwall.tin
+ic_geo_set_modified 0
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_set_meshing_params global 0
+ic_set_meshing_params global 0 gttol 0.000001 gtrel 1
+ic_regenerate_tris
+ic_geo_set_units {}
+ic_geo_new_family GEOM
+ic_boco_set_part_color GEOM
+###################################################################
+# Make blade intersection curves on endwall
+# Make blade tip geometry
+###################################################################
+ic_curve intersect FREEFACE_0_ crv.00 { F_1 F_5}
+ic_curve intersect FREEFACE_0_ crv.01 { F_1 F_2}
+ic_geo_delete_unattached { GEOM FREEFACE_1_ FREEFACE_2_ ORFN FREEFACE_3_ FREEFACE_4_ FREEFACE_0_} 0 1
+ic_build_topo 0.0065 -angle 30 -no_concat GEOM FREEFACE_1_ FREEFACE_2_ ORFN FREEFACE_3_ FREEFACE_4_ FREEFACE_0_
+ic_geo_delete_unattached { GEOM FREEFACE_1_ FREEFACE_2_ ORFN FREEFACE_3_ FREEFACE_4_ FREEFACE_0_}
+ic_delete_geometry surface names {F_5.cut.0 F_4 F_1 F_1.cut.1 F_2.cut.0 F_3} 0
+ic_geo_cre_geom_input /home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Tip_centreline_equispaced.dat 0.001 input PNTS pnt CRVS {} SURFS {}
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_geo_duplicate_set_fam_and_data point pnt14 pnt14.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt13 pnt13.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt12 pnt12.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt11 pnt11.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt10 pnt10.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt9 pnt9.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt8 pnt8.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt7 pnt7.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt6 pnt6.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt5 pnt5.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt4 pnt4.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt3 pnt3.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt2 pnt2.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt1 pnt1.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt0 pnt0.0 {} _0
+ic_move_geometry point names {pnt14.0 pnt13.0 pnt12.0 pnt11.0 pnt10.0 pnt9.0 pnt8.0 pnt7.0 pnt6.0 pnt5.0 pnt4.0 pnt3.0 pnt2.0 pnt1.0 pnt0.0} rotate 9 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade flat_wire
+ic_move_geometry point names {pnt14 pnt13 pnt12 pnt11 pnt10 pnt9 pnt8 pnt7 pnt6 pnt5 pnt4 pnt3 pnt2 pnt1 pnt0} rotate -9 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade flat_wire
+ic_delete_geometry curve names crv.45 0
+ic_curve point PNTS crv.45 {pnt14 FREEFACE_1_.42 pnt13 pnt12 pnt11 pnt10 pnt9 pnt8 pnt7 pnt6 pnt5 pnt4 pnt3 pnt2 pnt1 FREEFACE_1_.45 pnt0}
+ic_delete_geometry curve names crv.46 0
+ic_curve point PNTS crv.46 {pnt14.0 FREEFACE_3_.50 pnt13.0 pnt12.0 pnt11.0 pnt10.0 pnt9.0 pnt8.0 pnt7.0 pnt6.0 pnt5.0 pnt4.0 pnt3.0 pnt2.0 pnt1.0 FREEFACE_3_.51 pnt0.0}
+###################################################################
+# Split blade tip lines at LE / TE points
+###################################################################
+ic_curve split GEOM crv.47 {crv.45 FREEFACE_1_.42}
+ic_curve split GEOM crv.48 {crv.47 FREEFACE_1_.45}
+ic_curve split GEOM crv.49 {crv.46 FREEFACE_3_.50}
+ic_curve split GEOM crv.50 {crv.49 FREEFACE_3_.51}
+###################################################################
+# Make casing LE / TE points
+###################################################################
+ic_geo_cre_geom_input /home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Casing_Slice_SS.dat 0.001 input PNTS {} CRVS crv SURFS {}
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_move_geometry curve names crv0 rotate -9 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade flat_wire
+ic_geo_duplicate_set_fam_and_data curve crv0 crv0.0 {} _0
+ic_move_geometry curve names crv0.0 rotate 18 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade flat_wire
+ic_point curve_end CRVS pnt.00 {crv0 both}
+ic_point curve_end CRVS pnt.02 {crv0.0 both}
+ic_delete_geometry curve names crv0 0 1
+ic_set_dormant_pickable curve 0 {}
+ic_delete_geometry curve names crv0.0 0 1
+ic_set_dormant_pickable curve 0 {}
+###################################################################
+# Import casing centreline points
+###################################################################
+ic_geo_cre_geom_input /home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Casing_centreline_equispaced.dat 0.001 input PNTS pnt CRVS {} SURFS {}
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_move_geometry point names {pnt29 pnt27 pnt26 pnt25 pnt28 pnt24 pnt23 pnt22 pnt21 pnt20 pnt19 pnt18 pnt17 pnt16 pnt15} rotate -9 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade flat_wire
+ic_geo_duplicate_set_fam_and_data point pnt29 pnt29.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt27 pnt27.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt26 pnt26.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt25 pnt25.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt28 pnt28.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt24 pnt24.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt23 pnt23.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt22 pnt22.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt21 pnt21.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt20 pnt20.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt19 pnt19.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt18 pnt18.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt17 pnt17.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt16 pnt16.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt15 pnt15.0 {} _0
+ic_move_geometry point names {pnt29.0 pnt27.0 pnt26.0 pnt25.0 pnt28.0 pnt24.0 pnt23.0 pnt22.0 pnt21.0 pnt20.0 pnt19.0 pnt18.0 pnt17.0 pnt16.0 pnt15.0} rotate 18 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade flat_wire
+ic_delete_geometry curve names crv.51 0
+ic_curve point PNTS crv.51 {pnt29 pnt.00 pnt28 pnt27 pnt26 pnt25 pnt24 pnt23 pnt22 pnt21 pnt20 pnt19 pnt18 pnt17 pnt16 pnt.01 pnt15}
+ic_delete_geometry curve names crv.52 0
+ic_curve point PNTS crv.52 {pnt29.0 pnt.02 pnt28.0 pnt27.0 pnt26.0 pnt25.0 pnt24.0 pnt23.0 pnt22.0 pnt21.0 pnt20.0 pnt19.0 pnt18.0 pnt17.0 pnt16.0 pnt.03 pnt15.0}
+###################################################################
+# Split casing centreline at LE / TE points
+###################################################################
+ic_curve split GEOM crv.53 {crv.51 pnt.00}
+ic_curve split GEOM crv.54 {crv.53 pnt.01}
+ic_curve split GEOM crv.55 {crv.52 pnt.02}
+ic_curve split GEOM crv.56 {crv.55 pnt.03}
+ic_geo_duplicate_set_fam_and_data point FREEFACE_0_.42 FREEFACE_0_.42.0 {} _0
+ic_geo_duplicate_set_fam_and_data point FREEFACE_0_.41 FREEFACE_0_.41.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt15.0 pnt15.0.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt0.0 pnt0.0.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt15 pnt15.0 {} _0
+ic_geo_duplicate_set_fam_and_data point pnt0 pnt0.0 {} _0
+###################################################################
+# Make construction points and S2 outlet point framework
+# Make S2 vaneless geometry
+###################################################################
+ic_move_geometry point names {FREEFACE_0_.42.0 FREEFACE_0_.41.0 pnt15.0.0 pnt0.0.0 pnt15.1 pnt0.1} translate {0 0 92.182}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade flat_wire
+ic_point {} GEOM pnt.04 0,0,-37.182
+ic_point {} GEOM pnt.05 0,0,37.818
+ic_point {} GEOM pnt.06 0,0,-21.44353
+ic_point {} GEOM pnt.07 0,0,21.86771
+ic_point {} GEOM pnt.08 0,0,130
+ic_curve arc_ctr_rad GEOM crv.57 {pnt.04 pnt14 pnt14.0 202.0000025821171 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.58 {pnt.04 pnt29 pnt29.0 202.999998712559 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.59 {pnt.05 pnt0 pnt0.0 202.0000153416745 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.60 {pnt.05 pnt15 pnt15.0 202.9999952155534 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.61 {pnt.08 FREEFACE_0_.41.0 FREEFACE_0_.42.0 142.0000007554905 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.62 {pnt.08 pnt0.1 pnt0.0.0 202.0000153416745 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.63 {pnt.08 pnt15.1 pnt15.0.0 202.9999952155534 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.64 {pnt.06 pnt.00 pnt.02 203.0000146895466 {} {} 0}
+ic_curve arc_ctr_rad GEOM crv.65 {pnt.07 pnt.01 pnt.03 203.0000150361692 {} {} 0}
+ic_delete_geometry curve names crv.66 0
+ic_curve point FREEFACE_0_ crv.66 {FREEFACE_0_.40 pnt14}
+ic_delete_geometry curve names crv.67 0
+ic_curve point PNTS crv.67 {pnt14 pnt29}
+ic_delete_geometry curve names crv.68 0
+ic_curve point FREEFACE_0_ crv.68 {FREEFACE_0_.39 pnt14.0}
+ic_delete_geometry curve names crv.69 0
+ic_curve point PNTS crv.69 {pnt14.0 pnt29.0}
+ic_delete_geometry curve names crv.70 0
+ic_curve point FREEFACE_1_ crv.70 {FREEFACE_1_.42 pnt.00}
+ic_delete_geometry curve names crv.71 0
+ic_curve point FREEFACE_3_ crv.71 {FREEFACE_3_.50 pnt.02}
+ic_delete_geometry curve names crv.72 0
+ic_curve point FREEFACE_1_ crv.72 {FREEFACE_1_.45 pnt.01}
+ic_delete_geometry curve names crv.73 0
+ic_curve point FREEFACE_3_ crv.73 {FREEFACE_3_.51 pnt.03}
+ic_delete_geometry curve names crv.74 0
+ic_curve point FREEFACE_0_ crv.74 {FREEFACE_0_.41 pnt0}
+ic_delete_geometry curve names crv.75 0
+ic_curve point PNTS crv.75 {pnt0 pnt15}
+ic_delete_geometry curve names crv.76 0
+ic_curve point FREEFACE_0_ crv.76 {FREEFACE_0_.42 pnt0.0}
+ic_delete_geometry curve names crv.77 0
+ic_curve point PNTS crv.77 {pnt0.0 pnt15.0}
+ic_delete_geometry curve names crv.78 0
+ic_curve point FREEFACE_0_ crv.78 {FREEFACE_0_.42 FREEFACE_0_.42.0}
+ic_delete_geometry curve names crv.79 0
+ic_curve point FREEFACE_0_ crv.79 {FREEFACE_0_.41 FREEFACE_0_.41.0}
+ic_delete_geometry curve names crv.80 0
+ic_curve point PNTS crv.80 {pnt0.0 pnt0.0.0}
+ic_delete_geometry curve names crv.81 0
+ic_curve point PNTS crv.81 {pnt0 pnt0.1}
+ic_delete_geometry curve names crv.82 0
+ic_curve point PNTS crv.82 {pnt15.0 pnt15.0.0}
+ic_delete_geometry curve names crv.83 0
+ic_curve point PNTS crv.83 {pnt15 pnt15.1}
+ic_delete_geometry curve names crv.84 0
+ic_curve point FREEFACE_0_ crv.84 {FREEFACE_0_.42.0 pnt0.0.0}
+ic_delete_geometry curve names crv.85 0
+ic_curve point FREEFACE_0_ crv.85 {FREEFACE_0_.41.0 pnt0.1}
+ic_delete_geometry curve names crv.86 0
+ic_curve point PNTS crv.86 {pnt0.0.0 pnt15.0.0}
+ic_delete_geometry curve names crv.87 0
+ic_curve point PNTS crv.87 {pnt0.1 pnt15.1}
+###################################################################
+# Make surface faces
+###################################################################
+ic_surface 2-4crvs FREEFACE_0_ srf.00 {0.01 {F_1e23.2 F_2e26.2 crv.45 crv.66}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_0_ srf.01 {0.01 {crv.68 F_1e25.3 F_4e35.3 crv.46}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_1_ srf.02 {0.01 {F_2e28.3 F_1e23.7 crv.74 crv.48}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_3_ srf.03 {0.01 {F_4e37.2 F_1e25.4 crv.76 crv.50}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs PNTS srf.04 {0.01 {crv.45 crv.70 crv.51 crv.67}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs PNTS srf.05 {0.01 {crv.46 crv.52 crv.69 crv.71}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs PNTS srf.06 {0.01 {crv.54 crv.48 crv.75 crv.72}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs PNTS srf.07 {0.01 {crv.50 crv.56 crv.73 crv.77}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_0_ srf.08 {0.01 {crv.76 crv.78 crv.84 crv.80}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_0_ srf.09 {0.01 {crv.74 crv.79 crv.85 crv.81}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs PNTS srf.10 {0.01 {crv.82 crv.80 crv.86 crv.77}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs PNTS srf.11 {0.01 {crv.83 crv.81 crv.87 crv.75}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_0_ srf.12 {0.01 {crv.66 E_1 crv.68 crv.57}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs GEOM srf.13 {0.01 {crv.57 crv.69 crv.58 crv.67}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs GEOM srf.14 {0.01 {crv.61 crv.84 crv.62 crv.85}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs GEOM srf.15 {0.01 {crv.62 crv.63 crv.86 crv.87}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_0_ srf.16 {0.01 {E_3 crv.78 crv.61 crv.79}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs FREEFACE_1_ srf.21 {0.01 {E_8 crv.47}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs PNTS srf.22 {0.01 {crv.49 E_17}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface bsinterp FREEFACE_1_ srf.23 {crv.70 crv.47 crv.53 crv.72}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface bsinterp FREEFACE_3_ srf.24 {crv.71 crv.55 crv.49 crv.73}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs GEOM srf.17 {0.01 {crv.58 crv.52 crv.64 crv.51}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs GEOM srf.18 {0.01 {crv.64 crv.55 crv.65 crv.53}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs GEOM srf.19 {0.01 {crv.65 crv.56 crv.60 crv.54}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+ic_surface 2-4crvs GEOM srf.20 {0.01 {crv.60 crv.82 crv.63 crv.83}}
+ic_set_dormant_pickable point 0 {}
+ic_set_dormant_pickable curve 0 {}
+###################################################################
+# Make part POINTS
+###################################################################
+ic_geo_set_part point {FREEFACE_0_.35 FREEFACE_0_.36 FREEFACE_0_.37 FREEFACE_0_.38 FREEFACE_0_.39 FREEFACE_0_.40 FREEFACE_0_.41 FREEFACE_0_.42 FREEFACE_1_.42 FREEFACE_1_.43 FREEFACE_1_.44 FREEFACE_1_.45 FREEFACE_3_.48 FREEFACE_3_.49 FREEFACE_3_.50 FREEFACE_3_.51 pnt0 pnt1 pnt2 pnt3 pnt4 pnt5 pnt6 pnt7 pnt8 pnt9 pnt10 pnt11 pnt12 pnt13 pnt14 pnt14.0 pnt13.0 pnt12.0 pnt11.0 pnt10.0 pnt9.0 pnt8.0 pnt7.0 pnt6.0 pnt5.0 pnt4.0 pnt3.0 pnt2.0 pnt1.0 pnt0.0 pnt.00 pnt.01 pnt.02 pnt.03 pnt15 pnt16 pnt17 pnt18 pnt19 pnt20 pnt21 pnt22 pnt23 pnt24 pnt25 pnt26 pnt27 pnt28 pnt29 pnt29.0 pnt27.0 pnt26.0 pnt25.0 pnt28.0 pnt24.0 pnt23.0 pnt22.0 pnt21.0 pnt20.0 pnt19.0 pnt18.0 pnt17.0 pnt16.0 pnt15.0 FREEFACE_0_.42.0 FREEFACE_0_.41.0 pnt15.0.0 pnt0.0.0 pnt15.1 pnt0.1 pnt.04 pnt.05 pnt.06 pnt.07 pnt.08 FREEFACE_0_.8 FREEFACE_0_.9 FREEFACE_0_.10 FREEFACE_0_.11 FREEFACE_0_.12 FREEFACE_0_.13 FREEFACE_0_.14 FREEFACE_0_.15 FREEFACE_1_.15 FREEFACE_1_.16 FREEFACE_1_.17 FREEFACE_1_.18 FREEFACE_3_.18 FREEFACE_3_.19 FREEFACE_3_.20 FREEFACE_3_.21 PNTS.21 PNTS.22 PNTS.23 PNTS.24 PNTS.25 PNTS.26 PNTS.27 PNTS.28 PNTS.29 PNTS.30 PNTS.31 PNTS.32 PNTS.33 PNTS.34 PNTS.35 PNTS.36 FREEFACE_0_.43 FREEFACE_0_.44 FREEFACE_0_.45 FREEFACE_0_.46 FREEFACE_0_.47 FREEFACE_0_.48 FREEFACE_0_.49 FREEFACE_0_.50 PNTS.50 PNTS.51 PNTS.52 PNTS.53 PNTS.54 PNTS.55 PNTS.56 PNTS.57 FREEFACE_0_.57 FREEFACE_0_.58 FREEFACE_0_.59 FREEFACE_0_.60 GEOM.60 GEOM.61 GEOM.62 GEOM.63 GEOM.64 GEOM.65 GEOM.66 GEOM.67 GEOM.68 GEOM.69 GEOM.70 GEOM.71 FREEFACE_0_.71 FREEFACE_0_.72 FREEFACE_0_.73 FREEFACE_0_.74 FREEFACE_1_.74 FREEFACE_1_.75 PNTS.75 PNTS.76 GEOM.76 GEOM.77 GEOM.78 GEOM.79 GEOM.80 GEOM.81 GEOM.82 GEOM.83 GEOM.84 GEOM.85 GEOM.86 GEOM.87 GEOM.88 GEOM.89 GEOM.90 GEOM.91} POINTS 0
+###################################################################
+# Make part CURVES
+###################################################################
+ic_geo_set_part curve {E_1 E_3 E_6 E_8 E_9 E_11 E_13 E_15 E_17 E_19 crv.00 crv.01 F_1e23.2 F_1e25.3 F_2e26.2 F_2e26.3 F_2e28.2 F_2e28.3 F_4e35.2 F_4e35.3 F_4e37.2 F_4e37.3 F_1e23.6 F_1e23.7 F_1e25.4 F_1e25.5 crv.45 crv.47 crv.48 crv.46 crv.49 crv.50 crv.51 crv.53 crv.54 crv.52 crv.55 crv.56 crv.57 crv.58 crv.59 crv.60 crv.61 crv.62 crv.63 crv.64 crv.65 crv.66 crv.67 crv.68 crv.69 crv.70 crv.71 crv.72 crv.73 crv.74 crv.75 crv.76 crv.77 crv.78 crv.79 crv.80 crv.81 crv.82 crv.83 crv.84 crv.85 crv.86 crv.87} CURVES 0
+###################################################################
+# Make part INLET / S2_OUTLET / PERIODICS / CASING / HUB / ENDWALL
+###################################################################
+ic_geo_set_part surface {srf.12 srf.13} INLET 0
+ic_geo_set_part surface {srf.14 srf.15} S2_OUTLET 0
+ic_geo_set_part surface F_1.cut.0 ENDWALL 0
+ic_geo_set_part surface srf.16 S2_HUB 0
+ic_geo_set_part surface {srf.01 srf.05} INLET_PERIODIC1 0
+ic_geo_set_part surface {srf.00 srf.04} INLET_PERIODIC2 0
+ic_geo_set_part surface {srf.03 srf.07} OUTLET_PERIODIC1 0
+ic_geo_set_part surface {srf.02 srf.06} OUTLET_PERIODIC2 0
+ic_geo_set_part surface {srf.08 srf.10} S2_PERIODIC1 0
+ic_geo_set_part surface {srf.09 srf.11} S2_PERIODIC2 0
+ic_geo_set_part surface F_5 ROTOR_SS 0
+ic_geo_set_part surface srf.22 ROTOR_SS_TIP 0
+ic_geo_set_part surface F_2 ROTOR_PS 0
+ic_geo_set_part surface srf.21 ROTOR_PS_TIP 0
+ic_geo_set_part surface srf.24 TIP_PERIODIC1 0
+ic_geo_set_part surface srf.23 TIP_PERIODIC2 0
+ic_geo_set_part surface {srf.17 srf.18 srf.19} CASING 0
+ic_geo_set_part surface srf.20 S2_CASING 0
+##################################################################
+# Project and then delete casing curves onto CASING part
+##################################################################
+ic_geo_set_dormant_entity curve {crv.64 crv.65} 1
+ic_set_dormant_pickable curve 0 {}
+ic_geo_cre_geom_input /home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Casing_Slice_PS.dat 0.001 input PNTS {} CRVS crv SURFS {}
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_geo_cre_geom_input /home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Casing_Slice_SS.dat 0.001 input PNTS {} CRVS crv SURFS {}
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_move_geometry curve names crv0 rotate -9 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade wire
+ic_move_geometry curve names crv1 rotate 9 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade wire
+ic_geo_project_curve_to_surface crv0 {srf.17 srf.18 srf.19} crv.02 CASING 0 0
+ic_geo_project_curve_to_surface crv1 {srf.17 srf.18 srf.19} crv.03 CASING 0 0
+ic_delete_geometry curve names crv0 0 1
+ic_set_dormant_pickable curve 0 {}
+ic_delete_geometry curve names crv1 0 1
+ic_set_dormant_pickable curve 0 {}
+###################################################################
+# Generate o-grid curves and add to o-grid surface
+###################################################################
+ic_load_tetin /home/jonathan/Dropbox/linux_code_gui/meshes/mesh_8/ogrid_cutter_2mm.tin
+ic_boco_solver
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_geo_set_modified 0
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_geo_intersect_surfs_by_groups {F_1.cut.0 {F_5.34 F_6 topo_surf/6}} ENDWALL use_bsp multi_crv
+ic_move_geometry surface names {F_6 F_5.34 topo_surf/6} rotate 18 rotate_axis {0 0 1} cent {0 0 0}
+ic_geo_reset_data_structures
+ic_geo_configure_one_attribute surface shade wire
+ic_geo_intersect_surfs_by_groups {F_1.cut.0 {F_6 F_5.34 topo_surf/6}} ENDWALL use_bsp multi_crv
+ic_start_bigunsop
+ic_delete_elements family BODY_1_ no_undo 1
+ic_delete_geometry all families BODY_1_ 1 1
+ic_geo_delete_family BODY_1_
+ic_finish_bigunsop
+ic_start_bigunsop
+ic_delete_elements family BODY_2_ no_undo 1
+ic_delete_geometry all families BODY_2_ 1 1
+ic_geo_delete_family BODY_2_
+ic_finish_bigunsop
+###################################################################
+# Set global periodicity @ 18deg rotation
+# Import blocking
+###################################################################
+ic_coords_dir_into_global {0 0 1} global
+ic_geo_set_periodic_data {axis {0 0 1} type rot angle 18 base {0 0 0}}
+ic_hex_restore_blocking /home/jonathan/Dropbox/linux_code_gui/meshes/mesh_8/mesh105_single_ogrid_extracut.blk
+ic_hex_switch_blocking root
+ic_hex_unblank_blocks
+ic_hex_compute_mesh_size FREEFACE_0_ FREEFACE_1_ FREEFACE_2_ FREEFACE_3_ FREEFACE_4_ GEOM PNTS CRVS TMP_BSP_FAM POINTS CURVES INLET S2_OUTLET ENDWALL S2_HUB INLET_PERIODIC1 INLET_PERIODIC2 OUTLET_PERIODIC1 OUTLET_PERIODIC2 S2_PERIODIC1 S2_PERIODIC2 ROTOR_SS ROTOR_SS_TIP ROTOR_PS ROTOR_PS_TIP TIP_PERIODIC1 TIP_PERIODIC2 CASING S2_CASING FLUID
+ic_hex_error_messages off_minor
+###################################################################
+# Associate o-grid blocking curves to endwall o-grid curves
+###################################################################
+ic_hex_set_edge_projection 199 202 0 1 crv.00
+ic_hex_set_edge_projection 199 389 0 1 crv.00
+ic_hex_set_edge_projection 389 200 0 1 crv.00
+ic_hex_set_edge_projection 200 445 0 1 crv.00
+ic_hex_set_edge_projection 445 201 0 1 crv.00
+ic_hex_set_edge_projection 201 203 0 1 crv.00
+ic_hex_create_composite {ENDWALL/0278 ENDWALL/0279}
+ic_hex_set_edge_projection 121 89 0 1 ENDWALL/0278
+ic_hex_set_edge_projection 121 388 0 1 ENDWALL/0278
+ic_hex_set_edge_projection 388 181 0 1 ENDWALL/0278
+ic_hex_set_edge_projection 181 444 0 1 ENDWALL/0278
+ic_hex_set_edge_projection 444 125 0 1 ENDWALL/0278
+ic_hex_set_edge_projection 125 105 0 1 ENDWALL/0278
+ic_hex_create_composite {ENDWALL/0277 ENDWALL/0275 ENDWALL/0276}
+ic_hex_set_edge_projection 85 149 0 1 ENDWALL/0277
+ic_hex_set_edge_projection 149 374 0 1 ENDWALL/0277
+ic_hex_set_edge_projection 374 177 0 1 ENDWALL/0277
+ic_hex_set_edge_projection 177 430 0 1 ENDWALL/0277
+ic_hex_set_edge_projection 430 153 0 1 ENDWALL/0277
+ic_hex_set_edge_projection 101 153 0 1 ENDWALL/0277
+ic_hex_set_edge_projection 229 231 0 1 crv.01
+ic_hex_set_edge_projection 231 375 0 1 crv.01
+ic_hex_set_edge_projection 375 232 0 1 crv.01
+ic_hex_set_edge_projection 232 431 0 1 crv.01
+ic_hex_set_edge_projection 431 233 0 1 crv.01
+ic_hex_set_edge_projection 230 233 0 1 crv.01
+###################################################################
+# Move blocking nodes into place
+###################################################################
+ic_hex_place_node 199 curve:crv.00 0.928892931
+ic_hex_place_node 121 curve:ENDWALL/0278 0.894227578
+ic_hex_place_node 389 curve:crv.00 0.767454869
+ic_hex_place_node 388 curve:ENDWALL/0278 0.737698655
+ic_hex_place_node 200 curve:crv.00 0.639969299
+ic_hex_place_node 181 curve:ENDWALL/0278 0.616400319
+ic_hex_place_node 445 curve:crv.00 0.519021187
+ic_hex_place_node 444 curve:ENDWALL/0278 0.51780571
+ic_hex_place_node 201 curve:crv.00 0.0376853901
+ic_hex_place_node 125 curve:ENDWALL/0278 0.0482397301
+ic_hex_place_node 231 curve:crv.01 0.0254222251
+ic_hex_place_node 149 curve:ENDWALL/0275 0.033222621
+ic_hex_place_node 375 curve:crv.01 0.157161212
+ic_hex_place_node 374 curve:ENDWALL/0275 0.172437746
+ic_hex_place_node 232 curve:crv.01 0.310207986
+ic_hex_place_node 177 curve:ENDWALL/0275 0.325560589
+ic_hex_place_node 431 curve:crv.01 0.447171764
+ic_hex_place_node 430 curve:ENDWALL/0275 0.468113902
+ic_hex_place_node 233 curve:crv.01 0.983242589
+ic_hex_place_node 153 curve:ENDWALL/0277 0.961922695
+###################################################################
+# Split endwall circumferential edges onto endwall surface
+###################################################################
+ic_hex_split_edge 374 388 0 141.279 -14.2917 -10.2851
+ic_hex_split_edge 374 388 1 141.867 -6.14075 -10.3394
+ic_hex_split_edge 374 388 2 141.957 3.50542 -9.55077
+ic_hex_split_edge 177 181 0 141.081 -16.1298 -0.945105
+ic_hex_split_edge 177 181 1 141.83 -6.94703 -0.837743
+ic_hex_split_edge 177 181 2 141.953 3.62164 0.125024
+ic_hex_split_edge 430 444 0 141.611 -10.5034 5.70972
+ic_hex_split_edge 430 444 1 141.994 -1.25386 5.85173
+ic_hex_split_edge 430 444 2 141.677 9.57551 6.48013
+ic_hex_place_node 374  388 0 surface:F_1.cut.0 0.685437036 0.302245706
+ic_hex_place_node 374  388 1 surface:F_1.cut.0 0.500089789 0.299518875
+ic_hex_place_node 374  388 2 surface:F_1.cut.0 0.277299049 0.309916871
+ic_hex_place_node 177  181 0 surface:F_1.cut.0 0.70508289 0.394780555
+ic_hex_place_node 177  181 1 surface:F_1.cut.0 0.509891407 0.397501495
+ic_hex_place_node 177  181 2 surface:F_1.cut.0 0.271251935 0.405979487
+ic_hex_place_node 430  444 0 surface:F_1.cut.0 0.705627054 0.481877113
+ic_hex_place_node 430  444 1 surface:F_1.cut.0 0.505109971 0.484435054
+ic_hex_place_node 430  444 2 surface:F_1.cut.0 0.288598361 0.497793653
+###################################################################
+# Split blocking curves using onto endwall using AUTOMATIC LINEAR
+###################################################################
+ic_hex_undo_major_start auto_edge_split
+ic_hex_auto_split_edge 121 89
+ic_hex_auto_split_edge 121 388
+ic_hex_auto_split_edge 388 181
+ic_hex_auto_split_edge 181 444
+ic_hex_auto_split_edge 444 125
+ic_hex_undo_major_end auto_edge_split
+ic_hex_undo_major_start auto_edge_split
+ic_hex_auto_split_edge 199 202
+ic_hex_auto_split_edge 199 389
+ic_hex_auto_split_edge 389 200
+ic_hex_auto_split_edge 200 445
+ic_hex_auto_split_edge 445 201
+ic_hex_auto_split_edge 201 203
+ic_hex_undo_major_end auto_edge_split
+ic_hex_undo_major_start auto_edge_split
+ic_hex_auto_split_edge 229 231
+ic_hex_auto_split_edge 231 375
+ic_hex_auto_split_edge 375 232
+ic_hex_auto_split_edge 232 431
+ic_hex_auto_split_edge 431 233
+ic_hex_auto_split_edge 230 233
+ic_hex_undo_major_end auto_edge_split
+ic_hex_undo_major_start auto_edge_split
+ic_hex_auto_split_edge 85 149
+ic_hex_auto_split_edge 149 374
+ic_hex_auto_split_edge 374 177
+ic_hex_auto_split_edge 177 430
+ic_hex_auto_split_edge 430 153
+ic_hex_undo_major_end auto_edge_split
+###################################################################
+# Generate pre-mesh and convert to unstructed mesh hex.uns
+###################################################################
+ic_hex_list_family_projection
+ic_hex_create_mesh POINTS CURVES INLET S2_OUTLET ENDWALL S2_HUB INLET_PERIODIC1 INLET_PERIODIC2 OUTLET_PERIODIC1 OUTLET_PERIODIC2 S2_PERIODIC1 S2_PERIODIC2 ROTOR_SS ROTOR_SS_TIP ROTOR_PS ROTOR_PS_TIP TIP_PERIODIC1 TIP_PERIODIC2 CASING S2_CASING FLUID proj 2 dim_to_mesh 3 nproc 4
+ic_hex_write_file hex.uns POINTS CURVES INLET S2_OUTLET ENDWALL S2_HUB INLET_PERIODIC1 INLET_PERIODIC2 OUTLET_PERIODIC1 OUTLET_PERIODIC2 S2_PERIODIC1 S2_PERIODIC2 ROTOR_SS ROTOR_SS_TIP ROTOR_PS ROTOR_PS_TIP TIP_PERIODIC1 TIP_PERIODIC2 CASING S2_CASING FLUID proj 2 dim_to_mesh 3 -family_boco family_boco.fbc
+ic_uns_load hex.uns 3 0 {} 1
+ic_uns_update_family_type visible {FREEFACE_1_ TMP_BSP_FAM S2_OUTLET FREEFACE_3_ ROTOR_SS INLET_PERIODIC1 TIP_PERIODIC1 ROTOR_PS_TIP INLET_PERIODIC2 INLET BODY_1_ CASING TIP_PERIODIC2 PNTS POINTS CRVS FREEFACE_0_ ROTOR_PS CURVES GEOM S2_CASING FREEFACE_2_ S2_HUB FREEFACE_4_ FLUID BODY_0_ S2_PERIODIC1 OUTLET_PERIODIC1 S2_PERIODIC2 OUTLET_PERIODIC2 ORFN ROTOR_SS_TIP ENDWALL} {!NODE !LINE_2 QUAD_4 !HEXA_8} update 0
+ic_uns_diag_reset_degen_min_max
+ic_boco_solver
+ic_uns_update_family_type visible {FREEFACE_1_ TMP_BSP_FAM S2_OUTLET FREEFACE_3_ ROTOR_SS INLET_PERIODIC1 TIP_PERIODIC1 ROTOR_PS_TIP INLET_PERIODIC2 INLET BODY_1_ CASING TIP_PERIODIC2 PNTS POINTS CRVS FREEFACE_0_ ROTOR_PS CURVES GEOM S2_CASING FREEFACE_2_ S2_HUB FREEFACE_4_ FLUID BODY_0_ S2_PERIODIC1 OUTLET_PERIODIC1 S2_PERIODIC2 OUTLET_PERIODIC2 ORFN ROTOR_SS_TIP ENDWALL} {!NODE !LINE_2 QUAD_4 !HEXA_8} update 0
+ic_boco_clear_icons
+ic_csystem_display all 0
+ic_csystem_set_current global
+ic_boco_nastran_csystem reset
+ic_uns_update_family_type visible {FREEFACE_1_ TMP_BSP_FAM S2_OUTLET FREEFACE_3_ ROTOR_SS INLET_PERIODIC1 TIP_PERIODIC1 ROTOR_PS_TIP INLET_PERIODIC2 INLET BODY_1_ CASING TIP_PERIODIC2 PNTS POINTS CRVS FREEFACE_0_ ROTOR_PS CURVES GEOM S2_CASING FREEFACE_2_ S2_HUB FREEFACE_4_ FLUID BODY_0_ S2_PERIODIC1 OUTLET_PERIODIC1 S2_PERIODIC2 OUTLET_PERIODIC2 ORFN ROTOR_SS_TIP ENDWALL} {!NODE !LINE_2 QUAD_4 !HEXA_8} update 0
+ic_uns_update_family_type visible {FREEFACE_1_ TMP_BSP_FAM FREEFACE_3_ BODY_1_ PNTS CRVS FREEFACE_0_ GEOM FREEFACE_2_ FREEFACE_4_ FLUID BODY_0_ ORFN ENDWALL} {!NODE !LINE_2 QUAD_4 !HEXA_8} update 0
+###################################################################
+# Run diagnostics on mesh
+###################################################################
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type duplicate fix_fam FIX_DUPLICATE disp_subset uns_diag_0 diag_verb {Duplicate elements} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type uncovered fix_fam FIX_UNCOVERED disp_subset uns_diag_0 diag_verb {Uncovered faces} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type missing_internal fix_fam FIX_MISSING_INTERNAL disp_subset uns_diag_0 diag_verb {Missing internal faces} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type vol_orient fix_fam FIX_VOL_ORIENT disp_subset uns_diag_0 diag_verb {Volume orientations} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type surf_orient fix_fam FIX_SURF_ORIENT disp_subset uns_diag_0 diag_verb {Surface orientations} fams {} busy_off 1
+ic_uns_update_family_type visible {FREEFACE_1_ TMP_BSP_FAM FREEFACE_3_ BODY_1_ PNTS CRVS FREEFACE_0_ GEOM FREEFACE_2_ FREEFACE_4_ FLUID BODY_0_ ORFN ENDWALL} {!NODE !LINE_2 QUAD_4 !HEXA_8} update 0
+ic_uns_subset_configure uns_diag_0 -width 0
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type hanging fix_fam FIX_HANGING disp_subset uns_diag_0 diag_verb {Hanging elements} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type periodic_problem fix_fam FIX_PERIODIC_PROBLEM disp_subset uns_diag_0 diag_verb {Periodic problems} fams {INLET_PERIODIC1 TIP_PERIODIC1 INLET_PERIODIC2 TIP_PERIODIC2 S2_PERIODIC1 OUTLET_PERIODIC1 S2_PERIODIC2 OUTLET_PERIODIC2} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type multiple fix_fam FIX_MULTIPLE disp_subset uns_diag_0 diag_verb {Multiple edges} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type triangle_box fix_fam FIX_TRIANGLE_BOX disp_subset uns_diag_0 diag_verb {Triangle boxes} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type single fix_fam FIX_SINGLE disp_subset uns_diag_0 diag_verb {Single edges} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type nmanvert fix_fam FIX_NMANVERT disp_subset uns_diag_0 diag_verb {Non-manifold vertices} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_create_diagnostic_subset
+ic_uns_create_diagnostic_edgelist 1
+ic_uns_diagnostic subset all diag_type disconnected_vert fix_fam FIX_DISCONNECTED_VERT disp_subset uns_diag_0 diag_verb {Unconnected vertices} fams {} busy_off 1
+ic_uns_subset_delete uns_diag_0
+ic_uns_create_diagnostic_edgelist 0
+ic_uns_update_family_type visible {FREEFACE_1_ TMP_BSP_FAM FREEFACE_3_ BODY_1_ PNTS CRVS FREEFACE_0_ GEOM FREEFACE_2_ FREEFACE_4_ FLUID BODY_0_ ORFN ENDWALL} {!NODE !LINE_2 QUAD_4 !HEXA_8} update 0
+###################################################################
+# Set solver type to Ansys Fluent
+###################################################################
+ic_boco_solver {ANSYS Fluent}
+ic_solver_mesh_info {ANSYS Fluent}
+###################################################################
+# Set BOCO's for mesh named selections
+###################################################################
+ic_geo_new_family FREEFACE_1_ 0
+ic_boco_set FREEFACE_1_ {}
+ic_geo_new_family TMP_BSP_FAM 0
+ic_boco_set TMP_BSP_FAM {}
+ic_boco_set S2_OUTLET {{1 PRESO 0} { 1  {color}  16663866  }}
+ic_geo_new_family FREEFACE_3_ 0
+ic_boco_set FREEFACE_3_ {}
+ic_geo_new_family VORFN 0
+ic_uns_new_family VORFN 1
+ic_boco_set VORFN {}
+ic_boco_set ROTOR_SS {{1 WALL 0}}
+ic_boco_set INLET_PERIODIC1 {{1 PER 0}}
+ic_boco_set TIP_PERIODIC1 {{1 PER 0}}
+ic_boco_set ROTOR_PS_TIP {{1 WALL 0}}
+ic_boco_set INLET_PERIODIC2 {{1 PER 0}}
+ic_boco_set INLET {{1 VELI 0}}
+ic_boco_set POINTS {}
+ic_geo_new_family PNTS 0
+ic_boco_set PNTS {}
+ic_boco_set TIP_PERIODIC2 {{1 PER 0}}
+ic_boco_set CASING {{1 WALL 0} { 1  {color}  16663866  }}
+ic_geo_new_family BODY_1_ 0
+ic_boco_set BODY_1_ {}
+ic_geo_new_family CRVS 0
+ic_boco_set CRVS {}
+ic_geo_new_family FREEFACE_0_ 0
+ic_boco_set FREEFACE_0_ {}
+ic_geo_new_family GEOM 0
+ic_boco_set GEOM {}
+ic_boco_set CURVES {}
+ic_boco_set ROTOR_PS {{1 WALL 0}}
+ic_geo_new_family FREEFACE_2_ 0
+ic_boco_set FREEFACE_2_ {}
+ic_boco_set S2_CASING {{1 WALL 0} { 1  {color}  16663866  }}
+ic_geo_new_family FREEFACE_4_ 0
+ic_boco_set FREEFACE_4_ {}
+ic_boco_set S2_HUB {{1 WALL 0}}
+ic_boco_set OUTLET_PERIODIC1 {{1 PER 0}}
+ic_boco_set S2_PERIODIC1 {{1 PER 0}}
+ic_geo_new_family BODY_0_ 0
+ic_boco_set BODY_0_ {}
+ic_boco_set FLUID {{1 FLUID 0}}
+ic_boco_set ORFN {}
+ic_boco_set OUTLET_PERIODIC2 {{1 PER 0}}
+ic_boco_set S2_PERIODIC2 {{1 PER 0}}
+ic_boco_set ENDWALL {{1 WALL 0}}
+ic_boco_set ROTOR_SS_TIP {{1 WALL 0}}
+ic_boco_solver
+ic_geo_delete_family FREEFACE_1_
+ic_geo_delete_family TMP_BSP_FAM
+ic_geo_delete_family FREEFACE_3_
+ic_geo_delete_family BODY_1_
+ic_geo_delete_family PNTS
+ic_geo_delete_family CRVS
+ic_geo_delete_family FREEFACE_0_
+ic_geo_delete_family GEOM
+ic_geo_delete_family FREEFACE_2_
+ic_geo_delete_family FREEFACE_4_
+ic_geo_delete_family BODY_0_
+###################################################################
+# Save geometry & mesh as project1.prj
+###################################################################
+ic_save_tetin project1.tin 0 0 {} {} 0 0 1
+ic_uns_check_duplicate_numbers
+ic_save_unstruct project1.uns 1 {} {} {}
+ic_uns_set_modified 1
+ic_hex_save_blocking project1.blk
+ic_boco_solver
+ic_boco_save project1.fbc
+ic_boco_save_atr project1.atr
+ic_cart_is_loaded
+ic_save_project_file ./project1.prj {array\ set\ file_name\ \{ {    catia_dir .} {    parts_dir .} {    domain_loaded 1} {    cart_file_loaded 0} {    cart_file {}} {    domain_saved project1.uns} {    archive {}} {    med_replay {}} {    topology_dir .} {    ugparts_dir .} {    icons {{$env(ICEM_ACN)/lib/ai_env/icons} {$env(ICEM_ACN)/lib/va/EZCAD/icons} {$env(ICEM_ACN)/lib/icons} {$env(ICEM_ACN)/lib/va/CABIN/icons}}} {    tetin project1.tin} {    family_boco project1.fbc} {    iges_dir .} {    solver_params_loaded 0} {    attributes_loaded 0} {    project_lock {}} {    attributes project1.atr} {    domain project1.uns} {    domains_dir .} {    settings_loaded 0} {    settings project1.prj} {    blocking project1.blk} {    hexa_replay {}} {    transfer_dir .} {    mesh_dir .} {    family_topo {}} {    gemsparts_dir .} {    family_boco_loaded 0} {    tetin_loaded 0} {    project_dir .} {    topo_mulcad_out {}} {    solver_params hex.par} \} array\ set\ options\ \{ {    expert 1} {    remote_path {}} {    tree_disp_quad 2} {    tree_disp_pyra 0} {    evaluate_diagnostic 0} {    histo_show_default 1} {    select_toggle_corners 0} {    remove_all 0} {    keep_existing_file_names 0} {    record_journal 0} {    edit_wait 0} {    face_mode 1} {    select_mode all} {    med_save_emergency_tetin 1} {    user_name jonathan} {    diag_which all} {    uns_warn_if_display 500000} {    bubble_delay 1000} {    external_num 1} {    tree_disp_tri 2} {    apply_all 0} {    default_solver {ANSYS Fluent}} {    temporary_directory {}} {    flood_select_angle 0} {    home_after_load 1} {    project_active 0} {    histo_color_by_quality_default 1} {    undo_logging 1} {    tree_disp_hexa 0} {    histo_solid_default 1} {    host_name bergh01.lan.uct.ac.za} {    xhidden_full 1} {    editor gedit} {    mouse_color orange} {    clear_undo 1} {    remote_acn {}} {    remote_sh csh} {    tree_disp_penta 0} {    n_processors 4} {    remote_host {}} {    save_to_new 0} {    quality_info Quality} {    tree_disp_node 0} {    med_save_emergency_mesh 1} {    redtext_color red} {    tree_disp_line 0} {    select_edge_mode 0} {    use_dlremote 0} {    max_mesh_map_size 1024} {    show_tris 1} {    remote_user {}} {    auto_save_views 1} {    max_cad_map_size 512} {    display_origin 0} {    uns_warn_user_if_display 1000000} {    detail_info 0} {    win_java_help 0} {    show_factor 1} {    boundary_mode all} {    clean_up_tmp_files 1} {    med_save_emergency_blocking 1} {    max_binary_tetin 0} {    tree_disp_tetra 0} \} array\ set\ disp_options\ \{ {    uns_dualmesh 0} {    uns_warn_if_display 500000} {    uns_normals_colored 0} {    uns_icons 0} {    uns_locked_elements 0} {    uns_shrink_npos 0} {    uns_node_type None} {    uns_icons_normals_vol 0} {    uns_bcfield 0} {    backup Wire} {    uns_nodes 0} {    uns_only_edges 0} {    uns_surf_bounds 0} {    uns_wide_lines 0} {    uns_vol_bounds 0} {    uns_displ_orient Triad} {    uns_orientation 0} {    uns_directions 0} {    uns_thickness 0} {    uns_shell_diagnostic 0} {    uns_normals 0} {    uns_couplings 0} {    uns_periodicity 0} {    uns_single_surfaces 0} {    uns_midside_nodes 1} {    uns_shrink 100} {    uns_multiple_surfaces 0} {    uns_no_inner 0} {    uns_enums 0} {    uns_disp Wire} {    uns_bcfield_name {}} {    uns_color_by_quality 0} {    uns_changes 0} {    uns_cut_delay_count 1000} \} {set icon_size1 24} {set icon_size2 35} {set thickness_defined 0} {set solver_type 1} {set solver_setup -1} array\ set\ prism_values\ \{ {    n_triangle_smoothing_steps 5} {    min_smoothing_steps 6} {    first_layer_smoothing_steps 1} {    new_volume {}} {    height {}} {    prism_height_limit {}} {    interpolate_heights 0} {    n_tetra_smoothing_steps 10} {    do_checks {}} {    delete_standalone 1} {    ortho_weight 0.50} {    max_aspect_ratio {}} {    ratio_max {}} {    total_height {}} {    use_prism_v10 0} {    intermediate_write 1} {    delete_base_triangles {}} {    ratio_multiplier {}} {    refine_prism_boundary 1} {    max_size_ratio {}} {    triangle_quality {}} {    max_prism_angle 180} {    tetra_smooth_limit 0.3} {    max_jump_factor 5} {    use_existing_quad_layers 0} {    layers 3} {    fillet 0.10} {    into_orphan 0} {    init_dir_from_prev {}} {    blayer_2d 0} {    do_not_allow_sticking {}} {    top_family {}} {    law exponential} {    min_smoothing_val 0.1} {    auto_reduction 0} {    stop_columns 1} {    stair_step 1} {    smoothing_steps 12} {    side_family {}} {    min_prism_quality 0.01} {    ratio 1.2} \} {set aie_current_flavor {}} array\ set\ vid_options\ \{ {    wb_NS_to_subset 0} {    auxiliary 0} {    show_name 0} {    inherit 1} {    default_part GEOM} {    new_srf_topo 1} {    DelPerFlag 0} {    show_item_name 0} {    composite_tolerance 1.0} {    wb_import_scale_geo 0} {    replace 0} {    same_pnt_tol 1e-4} {    tdv_axes 1} {    vid_mode 0} {    DelBlkPerFlag 0} \} {set savedTreeVisibility {geomNode 1 geom_subsetNode 2 geomPointNode 0 geomCurveNode 2 geomSurfNode 2 meshNode 1 mesh_subsetNode 2 meshPointNode 0 meshLineNode 0 meshShellNode 2 meshQuadNode 2 meshVolumeNode 0 meshHexaNode 0 blockingNode 0 block_subsetNode 2 block_vertNode 0 block_edgeNode 0 block_faceNode 0 block_blockNode 0 block_meshNode 0 topoNode 2 topo-root 2 partNode 1 part-CASING 0 part-CURVES 0 part-ENDWALL 2 part-FLUID 2 part-INLET 0 part-INLET_PERIODIC1 0 part-INLET_PERIODIC2 0 part-OUTLET_PERIODIC1 0 part-OUTLET_PERIODIC2 0 part-POINTS 0 part-ROTOR_PS 0 part-ROTOR_PS_TIP 0 part-ROTOR_SS 0 part-ROTOR_SS_TIP 0 part-S2_CASING 0 part-S2_HUB 0 part-S2_OUTLET 0 part-S2_PERIODIC1 0 part-S2_PERIODIC2 0 part-TIP_PERIODIC1 0 part-TIP_PERIODIC2 0 part-VORFN 0}} {set last_view {rot {-0.711731343164 -0.583434935896 -0.356465096152 0.16116701241} scale {12.0159480531 12.0159480531 12.0159480531} center {148.636994020545899 13.7425928687294672 -18.6923536887103339} pos {124.520059878 50.1899305352 0}}} array\ set\ cut_info\ \{ {    active 0} {    whole 1} \} array\ set\ hex_option\ \{ {    default_bunching_ratio 2.0} {    floating_grid 0} {    n_tetra_smoothing_steps 20} {    trfDeg 1} {    wr_hexa7 0} {    smooth_ogrid 0} {    find_worst 1-3} {    hexa_verbose_mode 0} {    old_eparams 0} {    uns_face_mesh_method uniform_quad} {    multigrid_level 0} {    uns_face_mesh one_tri} {    check_blck 0} {    proj_limit 0} {    check_inv 0} {    project_bspline 0} {    hexa_update_mode 1} {    default_bunching_law BiGeometric} \} array\ set\ saved_views\ \{ {    views {}} \}} {ICEM CFD}
+###################################################################
+# Export mesh to Fluent format
+###################################################################
+ic_uns_num_couplings
+ic_exec /opt/ansys_inc/v145/icemcfd/linux64_amd/icemcfd/output-interfaces/fluent6 -dom ./project1.uns -b project1.fbc ./rotor

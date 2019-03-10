@@ -1,0 +1,250 @@
+/ Gambit journal file to make non-axisymmetric endwall
+/ Exports ACIS (.sat) geometry
+/
+/ J Bergh, 2014
+import iceminput "line_1.dat" edge
+import iceminput "line_1a.dat" edge
+import iceminput "line_1b.dat" edge
+import iceminput "line_2.dat" edge
+import iceminput "line_2a.dat" edge
+import iceminput "line_3.dat" edge
+import iceminput "line_3a.dat" edge
+import iceminput "line_4.dat" edge
+import iceminput "line_4a.dat" edge
+import iceminput "line_5.dat" edge
+import iceminput "line_5a.dat" edge
+import iceminput "line_5b.dat" edge
+import iceminput "line_6.dat" edge
+import iceminput \
+  "/home/jonathan/Dropbox/linux_code_gui/turbine_data/Rotor_turbo_volume_hub_meanlines.dat" \
+  vertex edge
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle -9 vector 0 0 1 origin 0 0 0
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle -6.75 vector 0 0 1 origin 0 0 0
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle -4.5 vector 0 0 1 origin 0 0 0
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle -2.25 vector 0 0 1 origin 0 0 0
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle 9 vector 0 0 1 origin 0 0 0
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle 6.75 vector 0 0 1 origin 0 0 0
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle 4.5 vector 0 0 1 origin 0 0 0
+vertex cmove "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8190" "vertex.8191" "vertex.8192" "vertex.8193" "vertex.8194" \
+  "vertex.8195" "vertex.8196" "vertex.8197" "vertex.8198" "vertex.8199" \
+  multiple 1 dangle 2.25 vector 0 0 1 origin 0 0 0
+vertex create onedge "edge.1" percentarclength 0.125
+vertex create onedge "edge.1" percentarclength 0.25
+vertex create onedge "edge.1" percentarclength 0.375
+vertex create onedge "edge.1" percentarclength 0.5
+vertex create onedge "edge.1" percentarclength 0.625
+vertex create onedge "edge.1" percentarclength 0.75
+vertex create onedge "edge.1" percentarclength 0.875
+vertex create onedge "edge.2" percentarclength 0.125
+vertex create onedge "edge.2" percentarclength 0.25
+vertex create onedge "edge.2" percentarclength 0.375
+vertex create onedge "edge.2" percentarclength 0.5
+vertex create onedge "edge.2" percentarclength 0.625
+vertex create onedge "edge.2" percentarclength 0.75
+vertex create onedge "edge.2" percentarclength 0.875
+vertex create onedge "edge.3" percentarclength 0.125
+vertex create onedge "edge.3" percentarclength 0.25
+vertex create onedge "edge.3" percentarclength 0.375
+vertex create onedge "edge.3" percentarclength 0.5
+vertex create onedge "edge.3" percentarclength 0.625
+vertex create onedge "edge.3" percentarclength 0.75
+vertex create onedge "edge.3" percentarclength 0.875
+vertex create onedge "edge.4" percentarclength 0.125
+vertex create onedge "edge.4" percentarclength 0.25
+vertex create onedge "edge.4" percentarclength 0.375
+vertex create onedge "edge.4" percentarclength 0.5
+vertex create onedge "edge.4" percentarclength 0.625
+vertex create onedge "edge.4" percentarclength 0.75
+vertex create onedge "edge.4" percentarclength 0.875
+vertex create onedge "edge.5" percentarclength 0.125
+vertex create onedge "edge.5" percentarclength 0.25
+vertex create onedge "edge.5" percentarclength 0.375
+vertex create onedge "edge.5" percentarclength 0.5
+vertex create onedge "edge.5" percentarclength 0.625
+vertex create onedge "edge.5" percentarclength 0.75
+vertex create onedge "edge.5" percentarclength 0.875
+vertex create onedge "edge.6" percentarclength 0.125
+vertex create onedge "edge.6" percentarclength 0.25
+vertex create onedge "edge.6" percentarclength 0.375
+vertex create onedge "edge.6" percentarclength 0.5
+vertex create onedge "edge.6" percentarclength 0.625
+vertex create onedge "edge.6" percentarclength 0.75
+vertex create onedge "edge.6" percentarclength 0.875
+vertex create onedge "edge.7" percentarclength 0.125
+vertex create onedge "edge.7" percentarclength 0.25
+vertex create onedge "edge.7" percentarclength 0.375
+vertex create onedge "edge.7" percentarclength 0.5
+vertex create onedge "edge.7" percentarclength 0.625
+vertex create onedge "edge.7" percentarclength 0.75
+vertex create onedge "edge.7" percentarclength 0.875
+vertex create onedge "edge.8" percentarclength 0.125
+vertex create onedge "edge.8" percentarclength 0.25
+vertex create onedge "edge.8" percentarclength 0.375
+vertex create onedge "edge.8" percentarclength 0.5
+vertex create onedge "edge.8" percentarclength 0.625
+vertex create onedge "edge.8" percentarclength 0.75
+vertex create onedge "edge.8" percentarclength 0.875
+vertex create onedge "edge.9" percentarclength 0.125
+vertex create onedge "edge.9" percentarclength 0.25
+vertex create onedge "edge.9" percentarclength 0.375
+vertex create onedge "edge.9" percentarclength 0.5
+vertex create onedge "edge.9" percentarclength 0.625
+vertex create onedge "edge.9" percentarclength 0.75
+vertex create onedge "edge.9" percentarclength 0.875
+vertex create onedge "edge.10" percentarclength 0.125
+vertex create onedge "edge.10" percentarclength 0.25
+vertex create onedge "edge.10" percentarclength 0.375
+vertex create onedge "edge.10" percentarclength 0.5
+vertex create onedge "edge.10" percentarclength 0.625
+vertex create onedge "edge.10" percentarclength 0.75
+vertex create onedge "edge.10" percentarclength 0.875
+vertex create onedge "edge.11" percentarclength 0.125
+vertex create onedge "edge.11" percentarclength 0.25
+vertex create onedge "edge.11" percentarclength 0.375
+vertex create onedge "edge.11" percentarclength 0.5
+vertex create onedge "edge.11" percentarclength 0.625
+vertex create onedge "edge.11" percentarclength 0.75
+vertex create onedge "edge.11" percentarclength 0.875
+vertex create onedge "edge.12" percentarclength 0.125
+vertex create onedge "edge.12" percentarclength 0.25
+vertex create onedge "edge.12" percentarclength 0.375
+vertex create onedge "edge.12" percentarclength 0.5
+vertex create onedge "edge.12" percentarclength 0.625
+vertex create onedge "edge.12" percentarclength 0.75
+vertex create onedge "edge.12" percentarclength 0.875
+vertex create onedge "edge.13" percentarclength 0.125
+vertex create onedge "edge.13" percentarclength 0.25
+vertex create onedge "edge.13" percentarclength 0.375
+vertex create onedge "edge.13" percentarclength 0.5
+vertex create onedge "edge.13" percentarclength 0.625
+vertex create onedge "edge.13" percentarclength 0.75
+vertex create onedge "edge.13" percentarclength 0.875
+edge create nurbs "vertex.8200" "vertex.8214" "vertex.8228" "vertex.8242" \
+  "vertex.8178" "vertex.8298" "vertex.8284" "vertex.8270" "vertex.8256" \
+  interpolate
+edge create nurbs "vertex.8201" "vertex.8215" "vertex.8229" "vertex.8243" \
+  "vertex.8179" "vertex.8299" "vertex.8285" "vertex.8271" "vertex.8257" \
+  interpolate
+edge create nurbs "vertex.8202" "vertex.8216" "vertex.8230" "vertex.8244" \
+  "vertex.8180" "vertex.8300" "vertex.8286" "vertex.8272" "vertex.8258" \
+  interpolate
+edge create nurbs "vertex.8203" "vertex.8217" "vertex.8231" "vertex.8245" \
+  "vertex.8181" "vertex.8301" "vertex.8287" "vertex.8273" "vertex.8259" \
+  interpolate
+edge create nurbs "vertex.8205" "vertex.8219" "vertex.8233" "vertex.8247" \
+  "vertex.8191" "vertex.8303" "vertex.8289" "vertex.8275" "vertex.8261" \
+  interpolate
+edge create nurbs "vertex.8207" "vertex.8221" "vertex.8235" "vertex.8249" \
+  "vertex.8193" "vertex.8305" "vertex.8291" "vertex.8277" "vertex.8263" \
+  interpolate
+edge create nurbs "vertex.8209" "vertex.8223" "vertex.8237" "vertex.8251" \
+  "vertex.8195" "vertex.8307" "vertex.8293" "vertex.8279" "vertex.8265" \
+  interpolate
+edge create nurbs "vertex.8211" "vertex.8225" "vertex.8239" "vertex.8253" \
+  "vertex.8197" "vertex.8309" "vertex.8295" "vertex.8281" "vertex.8267" \
+  interpolate
+edge create nurbs "vertex.8213" "vertex.8227" "vertex.8241" "vertex.8255" \
+  "vertex.8199" "vertex.8311" "vertex.8297" "vertex.8283" "vertex.8269" \
+  interpolate
+edge create nurbs "vertex.8256" "vertex.8257" "vertex.8258" "vertex.8259" \
+  "vertex.629" "vertex.1258" "vertex.1887" "vertex.2516" "vertex.3145" \
+  "vertex.3774" "vertex.4403" "vertex.5032" "vertex.5661" "vertex.6290" \
+  "vertex.6919" "vertex.7548" "vertex.8177" "vertex.8261" "vertex.8263" \
+  "vertex.8265" "vertex.8267" "vertex.8268" "vertex.8269" interpolate
+edge create nurbs "vertex.8270" "vertex.8271" "vertex.8272" "vertex.8273" \
+  "vertex.8318" "vertex.8325" "vertex.8332" "vertex.8339" "vertex.8346" \
+  "vertex.8353" "vertex.8360" "vertex.8367" "vertex.8374" "vertex.8381" \
+  "vertex.8388" "vertex.8395" "vertex.8402" "vertex.8275" "vertex.8277" \
+  "vertex.8279" "vertex.8281" "vertex.8282" "vertex.8283" interpolate
+edge create nurbs "vertex.8284" "vertex.8285" "vertex.8286" "vertex.8287" \
+  "vertex.8317" "vertex.8324" "vertex.8331" "vertex.8338" "vertex.8345" \
+  "vertex.8352" "vertex.8359" "vertex.8366" "vertex.8373" "vertex.8380" \
+  "vertex.8387" "vertex.8394" "vertex.8401" "vertex.8289" "vertex.8291" \
+  "vertex.8293" "vertex.8295" "vertex.8296" "vertex.8297" interpolate
+edge create nurbs "vertex.8298" "vertex.8299" "vertex.8300" "vertex.8301" \
+  "vertex.8316" "vertex.8323" "vertex.8330" "vertex.8337" "vertex.8344" \
+  "vertex.8351" "vertex.8358" "vertex.8365" "vertex.8372" "vertex.8379" \
+  "vertex.8386" "vertex.8393" "vertex.8400" "vertex.8303" "vertex.8305" \
+  "vertex.8307" "vertex.8309" "vertex.8310" "vertex.8311" interpolate
+edge create nurbs "vertex.8178" "vertex.8179" "vertex.8180" "vertex.8181" \
+  "vertex.8182" "vertex.8322" "vertex.8329" "vertex.8336" "vertex.8343" \
+  "vertex.8350" "vertex.8357" "vertex.8364" "vertex.8371" "vertex.8378" \
+  "vertex.8385" "vertex.8392" "vertex.8399" "vertex.8191" "vertex.8193" \
+  "vertex.8195" "vertex.8197" "vertex.8198" "vertex.8199" interpolate
+edge create nurbs "vertex.8242" "vertex.8243" "vertex.8244" "vertex.8245" \
+  "vertex.8314" "vertex.8321" "vertex.8328" "vertex.8335" "vertex.8342" \
+  "vertex.8349" "vertex.8356" "vertex.8363" "vertex.8370" "vertex.8377" \
+  "vertex.8384" "vertex.8391" "vertex.8398" "vertex.8247" "vertex.8249" \
+  "vertex.8251" "vertex.8253" "vertex.8254" "vertex.8255" interpolate
+edge create nurbs "vertex.8228" "vertex.8229" "vertex.8230" "vertex.8231" \
+  "vertex.8313" "vertex.8320" "vertex.8327" "vertex.8334" "vertex.8341" \
+  "vertex.8348" "vertex.8355" "vertex.8362" "vertex.8369" "vertex.8376" \
+  "vertex.8383" "vertex.8390" "vertex.8397" "vertex.8233" "vertex.8235" \
+  "vertex.8237" "vertex.8239" "vertex.8240" "vertex.8241" interpolate
+edge create nurbs "vertex.8214" "vertex.8215" "vertex.8216" "vertex.8217" \
+  "vertex.8312" "vertex.8319" "vertex.8326" "vertex.8333" "vertex.8340" \
+  "vertex.8347" "vertex.8354" "vertex.8361" "vertex.8368" "vertex.8375" \
+  "vertex.8382" "vertex.8389" "vertex.8396" "vertex.8219" "vertex.8221" \
+  "vertex.8223" "vertex.8225" "vertex.8226" "vertex.8227" interpolate
+edge create nurbs "vertex.8200" "vertex.8201" "vertex.8202" "vertex.8203" \
+  "vertex.1" "vertex.630" "vertex.1259" "vertex.1888" "vertex.2517" \
+  "vertex.3146" "vertex.3775" "vertex.4404" "vertex.5033" "vertex.5662" \
+  "vertex.6291" "vertex.6920" "vertex.7549" "vertex.8205" "vertex.8207" \
+  "vertex.8209" "vertex.8211" "vertex.8212" "vertex.8213" interpolate
+face create uedges "edge.15" "edge.16" "edge.17" "edge.18" "edge.1" "edge.2" \
+  "edge.3" "edge.4" "edge.5" "edge.6" "edge.7" "edge.8" "edge.9" "edge.10" \
+  "edge.11" "edge.12" "edge.13" "edge.19" "edge.20" "edge.21" "edge.22" \
+  "edge.23" udirections 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 vedges \
+  "edge.24" "edge.25" "edge.26" "edge.27" "edge.28" "edge.29" "edge.30" \
+  "edge.31" "edge.32" vdirections 0 0 0 0 0 0 0 0 0 tolerance 0.001 net
+import iceminput \
+  "/home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Slice_3_SS.dat" \
+  edge
+import iceminput \
+  "/home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Slice_3_PS.dat" \
+  edge
+edge cmove "edge.34" "edge.33" multiple 1 dangle 9 vector 0 0 1 origin 0 0 0
+edge move "edge.34" "edge.33" dangle -9 vector 0 0 1 origin 0 0 0
+import iceminput \
+  "/home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Tip_Slice_PS.dat" \
+  edge
+import iceminput \
+  "/home/jonathan/Dropbox/linux_code_gui/turbine_data/new_point_data/Tip_Slice_SS.dat" \
+  edge
+edge cmove "edge.38" "edge.37" multiple 1 dangle -9 vector 0 0 1 origin 0 0 0
+edge move "edge.38" "edge.37" dangle 9 vector 0 0 1 origin 0 0 0
+edge create straight "vertex.8813" "vertex.8453"
+edge create straight "vertex.8814" "vertex.8403"
+edge create straight "vertex.8508" "vertex.8661"
+edge create straight "vertex.8812" "vertex.8507"
+face create wireframe "edge.41" "edge.40" "edge.34" "edge.42" real
+face create wireframe "edge.39" "edge.41" "edge.33" "edge.42" real
+face create wireframe "edge.35" "edge.43" "edge.37" "edge.44" real
+face create wireframe "edge.38" "edge.44" "edge.36" "edge.43" real
+/face split "face.1" connected faces "face.3" "face.2"
+/face split "face.1" connected keeptool faces "face.4" "face.5"
+/face delete "face.5" "face.4" lowertopology
+/face delete "face.8" "face.2" lowertopology
+export acis "endwall.sat" ascii sequencing version "R16"
