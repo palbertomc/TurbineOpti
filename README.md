@@ -17,5 +17,13 @@ but it should not be difficult to subsitute alternative providers as required. T
 ## Running the code
 The code can be run with a GUI or headlessly. Both start up scripts are included. 
 
+## Literature
+This code was used as the basis of the designs produced for:
+
+_Bergh, J and Snedden, GC (2015) "Evaluation of the effectiveness of various metrics used in the design of non-axisymmetric turbine endwall contours", In proceedings of 22nd International Symposium on Air Breathing Engines (ISABE2015)_
+
+_Bergh, J (2018) "On the Evaluation of Common Design Metrics for the Optimization of Non-Axisymmetric Endwall Contours for a 1-stage Turbine Rotor", PhD thesis, University of Cape Town, South Africa_
+
+
 ## Citation
 Citing this work:
