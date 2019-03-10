@@ -1,0 +1,36 @@
+rc NGV.cas.gz
+rd NGV.dat.gz
+plot
+circum-avg-radial
+x-velocity
+outlet
+3000
+x_velocity
+yes
+circum-avg-radial
+y-velocity
+outlet
+3000
+y_velocity
+yes
+;circum-avg-radial
+;z-velocity
+;outlet
+;3000
+;z_velocity
+;yes
+;circum-avg-radial
+;turb-kinetic-energy
+;outlet
+;3000
+;k
+;yes
+;circum-avg-radial
+;specific-diss-rate
+;outlet
+;3000
+;omega
+;yes
+q
+exit
+yes

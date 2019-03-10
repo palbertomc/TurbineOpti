@@ -1,0 +1,662 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Fluent journal analysis of blade rows in optimisation
+; routine
+; Rev 2.0 New parameterisation, runs with mesh_8
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Read mesh, set batch and transcipt options, scale and
+; reorder domain
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+file
+read-case
+rotor.msh
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set batch options
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+file
+set-batch-options
+yes			;Confirm file overwrite
+yes			;Exit on error?
+no			;Hide questions?
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Scale mesh (mm -> m)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mesh
+scale
+0.001
+0.001
+0.001
+reorder
+reorder-domain
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Select inlet and outlet BC profiles
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+file
+read-profile
+rotor_inlet_Vel.prof
+;/media/data/linux_code/profiles/rotor_inlet_Vel2.prof
+;read-profile
+;rotor_outlet_Pstat2.prof
+;/media/data/linux_code/profiles/rotor_outlet_Pstat2.prof
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Select solver and p-v coupling (20=SIMPLE, 21=SIMPLEC, 
+; 22=PISO, 24=coupled)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+set
+p-v-coupling
+24
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; p-v-controls (for SIMPLEC / PISO only)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;solve
+;set
+;p-v-controls
+;1
+;1
+;no
+;q
+;q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set up torque monitor
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+monitors
+force
+moment-coefficient
+yes
+endwall
+rotor
+
+yes
+yes
+
+yes
+2
+no
+0
+0
+0
+0
+0
+1
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set up wake trace monitor
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+surface
+point-surface
+wake-point
+0.15778398
+0.04227809
+0.02870000
+q
+solve
+monitors
+surface
+set-monitor
+wake-angle
+"Vertex Average"
+rel-velocity-angle
+wake-point
+
+yes
+3
+yes
+yes
+wake-angle
+1
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specify turbulence model, material properties and operating 
+; conditions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Select turbulence model
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+define
+models
+viscous
+kw-sst
+yes
+kw-low-re-correction
+yes
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Select fluid
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+materials
+change-create
+air
+air
+yes
+constant
+1.010073
+no
+no
+yes
+constant
+1.814e-05
+no
+no
+no
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Operating conditions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+operating-conditions
+operating-pressure
+86431
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Boundary conditions's
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+boundary-conditions
+fluid
+fluid
+no
+no
+no
+yes
+-1
+no
+-240.855
+no
+0
+no
+0
+no
+0
+no
+0
+no
+0
+no
+0
+no
+0
+no
+0
+no
+1
+none
+no
+no
+no
+no
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Periodics
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+periodic
+inlet_periodic1
+yes
+periodic
+outlet_periodic1
+yes
+periodic
+s2_periodic1
+yes
+periodic
+tip_periodic1
+yes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Inlet
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+velocity-inlet
+inlet
+no
+yes
+yes
+no
+0
+no
+yes
+yes
+no
+"inlet_velocity"
+"radial_velocity"
+yes
+no
+"inlet_velocity"
+"tangential_velocity"
+yes
+no
+"inlet_velocity"
+"axial_velocity"
+0
+yes
+yes
+no
+"inlet_velocity"
+"turb_kinetic_energy"
+yes
+no
+"inlet_velocity"
+"specific_diss_rate"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Outlet
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+pressure-outlet
+s2_outlet
+no
+-3959
+;Backflow - direction vector?
+no
+;Backflow - normal to boundary? 		
+no
+;Backflow - from neighbouring cell?		
+yes
+;Turbulent specification - k-w
+yes
+;Use profile for TKE backflow?
+no
+;Backflow TKE
+0.0001
+;Use profile for spec diss backflow
+no
+;Backflow spec diss
+0.0001
+;Radial equilibrium pressure distribution?		
+yes
+;Ave pressure outlet - comment if using Radial pressure distribution above 		
+;yes
+;Target mass flow?		
+no
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Walls
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+wall
+casing
+yes
+motion-bc-moving
+no
+no
+yes
+no
+no
+0
+no
+0.5
+0
+0
+0
+0
+0
+0
+1
+copy-bc
+casing
+s2_casing
+s2_hub
+
+wall
+rotor_ps
+yes
+motion-bc-moving
+no
+no
+yes
+no
+no
+0
+no
+0.5
+-240.855
+0
+0
+0
+0
+0
+1
+copy-bc
+rotor_ps
+rotor_ss
+rotor_ps_tip
+rotor_ss_tip
+endwall
+
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Select discretization scheme
+;
+; Turb kinetic energy (k) 0=1st,1=2nd,3=Power,4=QUICK,6=MUSCL
+; Specific diss (w) 0=1st,1=2nd,3=Power,4=QUICK,6=MUSCL
+; Momentum (MOM) 0=1st,1=2nd,3=Power,4=QUICK,6=MUSCL
+; Pressure 10=standard,11=linear,12=2nd,13=bodyF,14=PRESTO!
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+set
+numerics
+no
+no
+no
+no
+no
+1
+discretization-scheme
+k
+1
+omega
+1
+pressure
+12
+mom
+1
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Select energy equation and define descretization (0=1st UP
+; 1=2nd UP)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;define
+;models
+;energy
+;yes
+;yes
+;yes
+;q
+;q
+;q
+;solve
+;set
+;discretization-scheme
+;temperature
+;1
+;q
+;q
+;q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set up URF's
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Segregated solver
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;solve
+;set
+;under-relaxation
+;pressure
+;0.2
+;mom
+;0.5
+;k
+;0.8
+;omega
+;0.8
+;turb-viscosity
+;1
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Coupled solver
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+set
+p-v-controls
+25
+0.25
+0.25
+under-relaxation
+k
+0.25
+omega
+0.25
+turb-viscosity
+1
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set residual convergence parameters
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+monitors
+residual
+convergence-criteria
+0.000001
+0.000001
+0.000001
+0.000001
+0.000001
+0.000001
+0.000001
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set wake and moment convergence parameters
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+monitors
+convergence
+add-edit
+wake-angle
+0.0005
+500
+200
+no
+no
+frequency
+25
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Change wall-distance calculation algorithm 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+initialize
+repair-wall-distance
+q
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set slope (gradient) limiter
+; 0 = default (TVD), 1 - multidimensional (TVD)
+; 2 = differentiable
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+set
+slope-limiter-set
+2
+;yes = cell-to-face, no = cell-to-cell
+yes
+;Enable limiter filter? (Comment for 1 - multidimensional (TVD)
+yes
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Initialize domain (inlet defaults / annular solution)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;solve
+;initialize
+;compute-defaults
+;velocity-inlet
+;inlet
+;q
+;initialize-flow
+;q
+;q
+file
+interpolate
+read-data
+../intdata.ip
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Run FMG calculation
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+solve
+initialize
+fmg-initialization
+yes
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Write case files and iterate solution
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+wc rotor.cas.gz
+it 1500
+wc rotor.cas.gz
+yes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Plot residuals
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+plot
+residuals
+yes
+yes
+yes
+yes
+yes
+yes
+q
+q
+disp
+save-picture
+residuals
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set additional datafile quantities and save data file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+file
+data-file-options
+rel-total-pressure
+q
+q
+q
+wd rotor.dat.gz
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set up data planes X2 (reference), X3 and X4 (results)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+surface
+plane-surf-aligned
+x2
+inlet
+0
+0
+-0.037
+plane-surf-aligned
+x3
+inlet
+0
+0
+0.0287
+plane-surf-aligned
+x4
+inlet
+0
+0
+0.0937
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Export torque, inlet density and total pressure integrals
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+report
+forces
+wall-moments
+n
+endwall
+rotor_ps
+rotor_ss
+rotor_ps_tip
+rotor_ss_tip
+
+0
+0
+0
+0
+0
+1
+y
+torque
+q
+surface-integrals
+area-weighted-avg
+inlet
+
+total-pressure
+y
+pressure
+area-weighted-avg
+inlet
+
+density
+y
+density
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Export solution data
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+file
+export
+ascii
+x2
+x2
+
+y
+helicity
+velocity-angle
+tangential-velocity
+radial-velocity
+axial-velocity
+velocity-magnitude
+total-pressure
+pressure
+q
+y
+ascii
+x3
+x3
+
+y
+helicity
+relative-velocity-angle
+velocity-angle
+rel-velocity-magnitude
+tangential-velocity
+radial-velocity
+axial-velocity
+velocity-magnitude
+rel-total-pressure
+total-pressure
+pressure
+q
+y
+ascii
+x4
+x4
+
+y
+helicity
+relative-velocity-angle
+velocity-angle
+rel-velocity-magnitude
+tangential-velocity
+radial-velocity
+axial-velocity
+velocity-magnitude
+rel-total-pressure
+total-pressure
+pressure
+q
+y
+q
+q
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; EXIT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+exit
+yes

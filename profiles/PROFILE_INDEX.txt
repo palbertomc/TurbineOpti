@@ -1,0 +1,26 @@
+Inlet and outlet profiles
+
+rotor_inlet_Vel2.prof       - inlet profile from CSIR NGV full model (3D)
+rotor_outlet_Pstat2.prof    - outlet profile from CSIR S2 full model (3D)
+
+rotor_inlet_Vel2_2.prof     - inlet profile from CSIR NGV full model (radial)
+
+rotor_inlet_Vel3.prof       - inlet profile from UNKNOWN (3D)
+rotor_outlet_Pstat3.prof    - outlet profile from UNKNOWN (3D)
+
+rotor_inlet_Vel4.prof       - inlet profile from UCT mesh NGV_3 model (100 points) (radial)
+
+rotor_inlet_Vel5.prof	    - inlet profile from UCT mesh NGV_3 model (3000 points) (radial)
+
+rotor_inlet_Vel6.prof	    - inlet profile from UCT mesh NGV_3 model (refined, 800k cells) (3000 points) (radial) 
+
+rotor_inlet_Vel7.prof	    - inlet profile from UCT mesh NGV_3 model (refined, 1100k cells) (3000 points) (radial) 
+
+rotor_inlet_Vel8.prof	    - inlet profile from UCT mesh NGV_3 model (refined, 1400k cells) (3000 points) (radial) 
+
+rotor_inlet_Vel9.prof	    - inlet profile from UCT mesh NGV_3 model (refined, 2590k cells) (3000 points) (radial) 
+
+rotor_inlet_Vel10.prof	    - inlet profile from UCT mesh NGV_3 model (refined, 2590k cells) (3000 points) (radial) WITH TEMPERATURE 
+
+test_inlet_profile.prof     - test profile from UNKNOWN (3D)
+test_outlet_Pstat2.prof     - test profile from UNKNOWN (3D)
