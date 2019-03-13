@@ -14,7 +14,7 @@ Currently, the scripts are designed for used with the following 3rd party softwa
 
 but it should not be difficult to subsitute alternative providers as required. 
 
-The software has already been integrated with OpenFOAM but these scripts are not included at this stage. Please contact the author if you are interested in obtaining these. 
+The software has already been integrated with OpenFOAM but these scripts are not included at this stage. Please contact the author(s) if you are interested in obtaining these. 
 
 ## Running the code
 The code can be run with a GUI or headlessly. Both start up scripts are included. 
