@@ -2,7 +2,7 @@
 A collection of Matlab scripts used for the kriging surrogate model assisted optimization of low speed turbine endwalls
 
 ## Introduction
-This software was originally written for the MathWorks Matlab runtime, as an automated design optimization routine for non-axisymmetric turbine endwalls. 
+This software was originally written for the MathWorks Matlab&trade; runtime, as an automated design optimization routine for non-axisymmetric turbine endwalls. 
 
 The optimization approach is based on the so-called DACE (Design of Computer Experiments - "Efficient Global Optimization of Expensive Black-Box Functions" of Jones, Schonlau & Welch 1998), which itself is based on the geostatistical "Kriging" method for estimating mineral deposits. 
 
@@ -22,6 +22,8 @@ The code can be run with a GUI or headlessly. Both start up scripts are included
 * `TurbineOpti.m -> GUI version`
 * `TurbineOpti_nogui.m -> headless version`
 
+Currently the code also requires the use of the Matlab Parallel Toolbox to accelerate the model fitting / optimization sub-procedures, however the use of the `parloop` structures are reasonably sparse and are trivial to remove if the toolbox is not available.
+
 ## Literature
 This code was used as the basis of the designs produced for:
 
@@ -32,4 +34,6 @@ _Bergh, J (2018) "On the Evaluation of Common Design Metrics for the Optimizatio
 
 ## Citation
 Citing this work:
-    `to be confirmed`
+
+    Bergh, J (2018) "On the Evaluation of Common Design Metrics for the Optimization of Non-Axisymmetric 
+    Endwall Contours for a 1-stage Turbine Rotor", PhD thesis, University of Cape Town, South Africa
