@@ -26,7 +26,6 @@ function u = crossOver(v,x,Cr)
 % Ouput:
 %   u -         matrix of trial output vectors (m x n)
 %
-% J Bergh, 2013
 
 % Get popsize (m) and no of dimensions (n) from input mutant vector matrix
 [m,n] = size(v);

@@ -28,7 +28,7 @@ function [y,stdR] = crossValidate(X,Y,theta,Ph,f)
 %   y -         vector of crossvalidated predictions for Y
 %   stdR -      vector of standard residuals
 %
-% J Bergh, 2014
+
 
 % Get size of data base
 [~,n] = size(X);

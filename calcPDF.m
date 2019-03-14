@@ -26,7 +26,6 @@ function y = calcPDF(x,mu,sigma)
 % Output:
 %   y -     output variable
 %
-% J Bergh, 2014
 
 % Default values for mu & sigma
 

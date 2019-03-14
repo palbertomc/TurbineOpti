@@ -23,8 +23,7 @@ function x_s = simplexShrink(simplex,NM_model)
 %
 % Output:
 %   x_s -           matrix (npar+1 x npar) of shrink point coordinates
-%
-% J Bergh, 2014
+
 
 % Set best point as first output vertex
 x_s(1,:) = simplex(1,:);

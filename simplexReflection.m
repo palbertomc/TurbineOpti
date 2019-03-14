@@ -23,8 +23,7 @@ function x_r = simplexReflection(simplex,NM_model)
 %
 % Output:
 %   x_r -           vector (npar x 1) of reflected point coordinates
-%
-% J Bergh, 2014
+
 
 % Calculate simplex centroid of best points for reflection
 simplex_bar = sum(simplex(1:NM_model.npar,:))/NM_model.npar;

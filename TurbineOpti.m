@@ -15,6 +15,7 @@
 % along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 function varargout = TurbineOpti(varargin)
+
 % TURBINEOPTI MATLAB code for TurbineOpti.fig
 %      TURBINEOPTI, by itself, creates a new TURBINEOPTI or raises the existing
 %      singleton*.
@@ -259,7 +260,7 @@ handles.operating_pressure = str2double(get(hObject,'String'));
 guidata(hObject,handles);
 
 % --- Executes during object creation, after setting all properties.
-function edit20_CreateFcn(hObject, eventdata, handles)
+function edit20_CreateFcn(hObject, ~, handles)
 % hObject    handle to edit20 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called

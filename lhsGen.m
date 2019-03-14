@@ -27,8 +27,7 @@ function A = lhsGen(pop,ndim,vlo,vhi)
 %
 % Output:
 %   A -         matrix (pop x ndim) of data point coordinates
-%
-% J Bergh, 2014
+
 
 A = lhsdesign(pop,ndim,'criterion','maximin','iterations',pop*ndim*500);
 

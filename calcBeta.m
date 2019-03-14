@@ -26,7 +26,6 @@ function beta = calcBeta(f,R,Y)
 % Ouput:
 %   beta -  beta value in kriging predictor
 %
-% J Bergh, 2013
 
 % Calculate estimate of beta
 beta = (f'/R*Y)/(f'/R*f);

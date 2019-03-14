@@ -29,7 +29,6 @@ function graphResultsv2(RPM,results_struct,dir_model,blade_model,endwall_model,c
 % Output:
 %   null -
 %
-% J Bergh, 2014
 
 % Set figure properties
 set(0,'defaultLineLineWidth',1.25,'defaultAxesFontName','Arial','defaultAxesFontSize',12,'defaultFigureVisible','off',...

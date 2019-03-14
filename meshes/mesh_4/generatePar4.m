@@ -1,3 +1,19 @@
+% TurbineOpti
+% Copyright (C) 2019  J. Bergh
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 function newpar = generatePar4(endwall_model,popsize)
 
 % Function to generate geometry matrix for contoured endwalls
@@ -13,8 +29,6 @@ function newpar = generatePar4(endwall_model,popsize)
 % Output:
 %   newpar -            matrix (m x n) of geometry coefficient and scaling
 %                       factors, m = no. of parameters, n = popsize
-%
-% J Bergh, 2013
 
 % Generate intial unscaled parameter matrix
 newpar = (endwall_model.constantshi - endwall_model.constantslo) * rand(popsize,endwall_model.npar) + endwall_model.constantslo;

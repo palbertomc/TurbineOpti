@@ -25,7 +25,6 @@ function [rsquared] = correlationCoeff(f,fhat)
 % Output:
 %   rsquared -  corr coeff (scalar)
 %
-% J Bergh, 2015
 
 % check inputs
 if (nargin < 2)

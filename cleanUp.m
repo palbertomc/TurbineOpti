@@ -24,7 +24,6 @@ function cleanUp(work_dir,blade_type,iga)
 % Output: 
 %   null
 %
-% J Bergh, 2014
 
 fprintf('\nCleaning up files ...\n');
   

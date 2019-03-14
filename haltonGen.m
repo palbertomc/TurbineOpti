@@ -27,8 +27,6 @@ function A = haltonGen(pop,ndim,vlo,vhi)
 %
 % Output:
 %   A -         Matrix (pop x ndim) of data point coordinates
-%
-% J Bergh, 2014
 
 A = zeros(pop,ndim);
 
@@ -56,8 +54,7 @@ function sum = haltonSequence(i,j)
 
 % Function to calculate the next number in the Halton quasi-random number
 % sequence for space-filling for up to 12 dimensions
-%
-% J Bergh, 2014
+
 
 primelist = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37];
 

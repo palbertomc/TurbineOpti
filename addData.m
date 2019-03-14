@@ -28,7 +28,6 @@ function [newX,newY] = addData(X,Y,addX,addY)
 %   newX -      augmented X data
 %   newY -      augmented Y data
 %
-% J Bergh, 2013
 
 % Check size of existing X data
 [~,n] = size(X);

@@ -26,8 +26,7 @@ function processResultsCFD(graphresults,cfd_model,blade_model,endwall_model,dir_
 %
 % Output:
 %   null -
-%
-% J Bergh, 2014
+
 
 % Set figure name and format for graphing
 figurename = 'fig'; filetype = 'pdf';
