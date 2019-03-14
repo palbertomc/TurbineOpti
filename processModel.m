@@ -28,8 +28,7 @@ function [newX,newY,unsteady] = processModel(cfd_model,blade_model,endwall_model
 % Output:
 %   newX,newY -     new data coordinates newX (m x 1) and function value newY (scalar) 
 %                   for database
-%
-% J Bergh, 2014
+
 
 % Reset cost vector
 cost = 0; unsteady = 0;

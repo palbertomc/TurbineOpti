@@ -24,8 +24,7 @@ function [v,ndiff,rcomb] = mutateVec(x,F)
 %
 % Output:
 %   v -       matrix of output mutant vectors (m x n)
-%
-% J Bergh, 2013
+
 
 % Get no. of parameters from input target vector matrix
 [m,n] = size(x);

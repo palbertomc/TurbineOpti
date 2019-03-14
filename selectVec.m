@@ -26,8 +26,7 @@ function [output,cost] = selectVec(EIfunc,u,par,X,Y,theta,Ph,R,beta,f,endwall_mo
 %   output -    vector containing either 'u' or 'x' depending on whether
 %               f(u) or f(x) is better (lower)
 %   cost -      costfunction value associated with output vector
-%
-% J Bergh, 2013
+
 
 % Get popsize (m) and no. of parameters (n)
 [m,n] = size(par);

@@ -25,7 +25,6 @@ function [cost] = costfuncCFD11(Cske,SKEH,deviation,Cp0,Vdotalpha,efficiency)
 % Output:
 %   cost -  function value to be returned to database
 %
-% J Bergh, 2014
 
 % Coefficient of secondary kinetic energy (Cske)
 f_Cske = Cske;                      

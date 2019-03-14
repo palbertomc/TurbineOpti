@@ -26,7 +26,6 @@ function MLE = costfunclogMLE(R,sigma2)
 % Ouput:
 %   MLE -   Maximum Likelihood Estimate
 %
-% J Bergh, 2013
 
 % Get no of data points in R
 [~,n] = size(R);

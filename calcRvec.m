@@ -27,7 +27,6 @@ function r = calcRvec(x,X,theta,Ph)
 % Ouput:
 %   r -     correlation vector (n x 1)
 %
-% J Bergh, 2013
 
 % Get sizes of x and X
 % [a,~] = size(x);

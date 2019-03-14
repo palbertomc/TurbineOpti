@@ -27,7 +27,6 @@ function p = calcCDF(x,mu,sigma)
 % Output:
 %   p -     cdf result for x / mu / sigma
 %
-% J Bergh, 2014
 
 % Set default values for mu & sigma if too few input arguments
 if (nargin < 3)

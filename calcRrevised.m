@@ -29,7 +29,6 @@ function [R,condR] = calcRrevised(A,theta,Ph)
 %   R -     matrix of correlations (n x n)
 %   condR - condition indicator of R matrix (1 = good, condR >> 1 = poor)
 %
-% J Bergh, 2013
 
 % Get no of dimensions in data and no. of data points
 [m,~] = size(A);

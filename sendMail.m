@@ -25,8 +25,7 @@ function sendMail(receipient,subject,message)
 %
 % Output:
 %   null
-%
-% J Bergh, 2014
+
 
 % User account and password
 mail = 'bergh.jonathan@gmail.com';

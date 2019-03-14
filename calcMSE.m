@@ -26,7 +26,6 @@ function [RMSE,max_error] = calcMSE(y,Y)
 % Ouput:
 %   MSE -   mean square error between predicted and actual function values
 %
-% J Bergh, 2013
 
 % Get sizes of y and Y
 [m,n] = size(Y);

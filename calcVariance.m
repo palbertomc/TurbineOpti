@@ -27,7 +27,6 @@ function sigma2 = calcVariance(f,beta,R,Y)
 % Ouput:
 %   sigma2 -  beta value in kriging predictor
 %
-% J Bergh, 2013
 
 % Get no of sample points in fitting data
 [m,~] = size(Y);

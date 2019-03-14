@@ -65,7 +65,7 @@ handles.maxit = 300; % 300
 handles.mincost = 0;
 handles.span_avg = 100;
 handles.wake_tolerance = 1;
-handles.username = 'jonathan';
+handles.username = 'user';
 handles.ncores = 16;
 handles.CFDcostfuncno = 11;
 handles.EIfunc = 'costfuncWB1';
@@ -115,10 +115,10 @@ handles.local_span_avg = 100;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Working directories
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-handles.base_dir = '/home/jonathan/Dropbox/linux_code_gui/';
-handles.work_dir = '/home/jonathan/RUN104.3-Vdotalpha/';
-handles.turbine_dir = '/home/jonathan/Dropbox/linux_code_gui/turbine_data/';
-handles.reference_data_directory = '/home/jonathan/Dropbox/linux_code_gui/reference/';
+handles.base_dir = '/home/linux_code_gui/';
+handles.work_dir = '/home/RUN104.3-Vdotalpha/';
+handles.turbine_dir = '/home/linux_code_gui/turbine_data/';
+handles.reference_data_directory = '/home/linux_code_gui/reference/';
 
 if (exist(handles.work_dir,'dir')) 
     cd(handles.work_dir);
@@ -168,30 +168,6 @@ A = calcXK(handles.X);
 fprintf('\nMax error:\t %g\n',max_error);
 fprintf('RMSE:\t\t %g\n',RMSE); 
 fprintf('\nFitting results ... \n    IGA: n/a \n    MLE: n/a \n    Telapsed: n/a \n    cond(R): %g (cond(R) -> inf = bad)\n\n    Theta: %s\n',condR,mat2str(handles.theta,8));
-
-% Plot some diagnostics
-% Predicted y vs Actual Y
-%axes(handles.axes6);
-%plot(y,handles.Y,'ob',linspace(min(min(y),min(handles.Y)),max(max(y),max(handles.Y)),100),linspace(min(min(y),min(handles.Y)),max(max(y),max(handles.Y)),100),'-k');
-%axis([min(min(y),min(handles.Y)) max(max(y),max(handles.Y)) min(min(y),min(handles.Y)) max(max(y),max(handles.Y))]);
-%xlabel('Predicted y'); ylabel('Actual Y');
-%grid on;
-
-% Standardised residual
-%axes(handles.axes4);
-%plot(y,stdR,'ob',linspace(min(min(y),min(handles.Y)),max(max(y),max(handles.Y)),2),[3 3],'--b',linspace(min(min(y),min(handles.Y)),max(max(y),max(handles.Y)),2),[-3 -3],'--b');
-%axis([min(min(y),min(handles.Y)) max(max(y),max(handles.Y)) min(min(stdR),-3.5) max(max(stdR),3.5)]);
-%xlabel('Predicted y'); ylabel('Standardised Residual');
-%grid on;
-
-% Q-Q plot
-%axes(handles.axes5);
-%ystdR = sort(stdR);
-%x = calcQPos(ystdR); x = calcNormInv(x);
-%plot(x,ystdR,'ob',linspace(min(min(x),min(ystdR)),max(max(x),max(ystdR)),100),linspace(min(min(x),min(ystdR)),max(max(x),max(ystdR)),100),'-k');
-%axis([min(min(x),min(ystdR)) max(max(x),max(ystdR)) min(min(x),min(ystdR)) max(max(x),max(ystdR))]);
-%xlabel('Standard Normal Quantile'); ylabel('Standardised Residual');
-%grid on;
    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ENTER MAIN ROUTINE CODE HERE
@@ -227,14 +203,6 @@ fmodel = struct('maxit',handles.kopt_maxit,'npar',handles.npar,...
     'varhi',handles.kopt_varhi,'varlo',handles.kopt_varlo,...
     'popsize',handles.kopt_popsize,'Ph',handles.Ph,'X',handles.X,...
     'Y',handles.Y,'f',handles.f,'objfunc',@costfunclogMLE);
-
-% Get plot axes for various plots
-%axes(handles.axes1); a1 = gca; grid on;
-%axes(handles.axes3); a3 = gca; grid on;
-%axes(handles.axes4); a4 = gca; grid on;
-%axes(handles.axes5); a5 = gca; grid on;
-%axes(handles.axes6); a6 = gca; grid on;
-%axes(handles.axes7); a7 = gca; grid on;
 
 % Calculate initial kriging model parameters
 A = calcXK(X);
@@ -291,12 +259,12 @@ if (strcmp(handles.optimiser_type,'DE') == 1)
         end
         
         % Run meshing and CFD routines
-        createGeometry8chimera(blade_model,dir_model,resource_model,xopt,iga);
+        createGeometry8normal(blade_model,dir_model,resource_model,xopt,iga);
         [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga,resource_model);
 
         if ((meshstatus == 1) || (cfdstatus == 1))
             [~,hostname] = system('hostname');
-            sendMail('bergh.jonathan@gmail.com','Mesh or CFD failed',sprintf('Either the mesher or CFD run has failed on %s',hostname));
+            sendMail('myemail@mail.com','Mesh or CFD failed',sprintf('Either the mesher or CFD run has failed on %s',hostname));
             fprintf('\nManually create mesh and/or run CFD simulation\n');
             pause;
         end
@@ -305,7 +273,7 @@ if (strcmp(handles.optimiser_type,'DE') == 1)
         
         if (unsteady == 1)    
             [~,hostname] = system('hostname');
-            sendMail('bergh.jonathan@gmail.com','UNSTEADINESS DETECTED',sprintf('CFD run has produced an unsteady result on %s',hostname));
+            sendMail('myemail@mail.com','UNSTEADINESS DETECTED',sprintf('CFD run has produced an unsteady result on %s',hostname));
             fprintf('\nPlease manually inspect unsteady CFD result\n');
             pause;
         end
@@ -342,40 +310,10 @@ if (strcmp(handles.optimiser_type,'DE') == 1)
 	fprintf('RMSE:\t\t %g\n',RMSE);               
         fprintf('\nFitting results ... \n    IGA: %g \n    MLE: %g \n    Telapsed: %.2f secs\n    cond(R): %g (cond(R) -> inf = bad)\n\n Theta: %s\n'...
                              ,k_iga,MLE,telapsed,condR,mat2str(theta,8));
-
-        % Plot diagnostics
-        % Predicted y vs Actual Y
-%        axes(handles.axes6);
-%        plot(y,Y,'ob',linspace(min(min(y),min(Y)),max(max(y),max(Y)),100),linspace(min(min(y),min(Y)),max(max(y),max(Y)),100),'-k');
-%        axis([min(min(y),min(Y)) max(max(y),max(Y)) min(min(y),min(Y)) max(max(y),max(Y))]);
-%        xlabel('Predicted y'); ylabel('Actual Y');
-%        grid on;
-
-        % Standardised residual
-%        axes(handles.axes4);
-%        plot(y,stdR,'ob',linspace(min(min(y),min(Y)),max(max(y),max(Y)),2),[3 3],'--b',linspace(min(min(y),min(Y)),max(max(y),max(Y)),2),[-3 -3],'--b');
-%        axis([min(min(y),min(Y)) max(max(y),max(Y)) min(min(stdR),-3.5) max(max(stdR),3.5)]);
-%        xlabel('Predicted y'); ylabel('Standardised Residual');
-%        grid on;
-
-        % Q-Q plot
-%        axes(handles.axes5);
-%        ystdR = sort(stdR); x = calcQPos(ystdR); x = calcNormInv(x);
-%        plot(x,ystdR,'ob',linspace(min(min(x),min(ystdR)),max(max(x),max(ystdR)),100),linspace(min(min(x),min(ystdR)),max(max(x),max(ystdR)),100),'-k');
-%        axis([min(min(x),min(ystdR)) max(max(x),max(ystdR)) min(min(x),min(ystdR)) max(max(x),max(ystdR))]);
-%        xlabel('Standard Normal Quantile'); ylabel('Standardised Residual');
-%        grid on;
         
         % Calculate data base statistics
         [Yopt,~] = min(Y(dbmax+1:end));
-        
-        % Plot overall optimisation progress
-%        axes(handles.axes1);
          minY(iga) = Yopt; 
-%        iters = 1:1:iga;
-%        plot(iters,minY,'o-b');
-%        xlabel('Outer iterations'); ylabel('Objective function');
-%        grid on;
         
         % Check outer loop convergence
         if ((abs(min(y)) / abs(min(Y))) * 100 <= 0.1)                

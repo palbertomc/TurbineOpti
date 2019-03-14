@@ -24,7 +24,6 @@ function y = calcQPos(x)
 % Output:
 %   y -     vector of quantiles
 %
-% J Bergh, 2014
 
 % Get size of x
 [n,m] = size(x);

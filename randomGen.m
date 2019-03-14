@@ -28,7 +28,7 @@ function A = randomGen(pop,ndim,vlo,vhi)
 % Output:
 %   A -         Matrix (pop x ndim) of data point coordinates
 %
-% J Bergh, 2014
+
 
 A = rand(pop,ndim);
 

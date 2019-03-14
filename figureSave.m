@@ -24,8 +24,7 @@ function figureSave(figurename,filetype)
 %
 % Ouput:
 %   null - 
-%
-% J Bergh, 2014
+
 
 % Sets default inputs if function inputs not valid
 if (nargin == 0)

@@ -25,7 +25,7 @@ function A = calcXK(X)
 % Ouput:
 %   XK -     matrix of data points (n x n)
 %
-% J Bergh, 2013
+
 
 % Get no of parameters and no of sample points
 [m,~] = size(X);

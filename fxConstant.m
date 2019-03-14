@@ -24,7 +24,6 @@ function f = fxConstant(X)
 % Output:
 %   f -  vector of ones (1's) (n x 1)
 %
-% J Bergh, 2013
 
 % Retrieve no of samples in X
 [~,n] = size(X);

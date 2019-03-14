@@ -27,7 +27,6 @@ function [cost] = costfuncCFD10(Cske,SKEH,deviation,Cp0,Vdotalpha,efficiency)
 %
 %   NB newSKEH COSTFUNCTION
 %
-% J Bergh, 2014
 
 % Coefficient of secondary kinetic energy (Cske)
 f_Cske = Cske;                      

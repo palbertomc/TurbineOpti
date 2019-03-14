@@ -29,7 +29,6 @@ function [y,MSE] = predict(r,R,Y,beta,f)
 %   y -     predicted function value
 %   MSE -  mean square error of prediction
 %
-% J Bergh, 2013
 
 y = beta + r'/R*(Y-f*beta);
 

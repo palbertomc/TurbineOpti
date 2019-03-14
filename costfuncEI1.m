@@ -25,7 +25,6 @@ function cost = costfuncEI1(x,X,Y,theta,Ph,R,beta,f)
 % Output:
 %   cost -      EI output (scalar) for input vector x
 %
-% J Bergh, 2013
 
 % Predict y for input vector x
 r = calcRvec(x',X,theta,Ph);

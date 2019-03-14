@@ -26,7 +26,6 @@ function x = calcNormInv(p,mu,sigma)
 % Output:
 %   x -     output variable
 %
-% J Bergh, 2014
 
 % Check input arguments and set defaults if required
 if (nargin < 3)

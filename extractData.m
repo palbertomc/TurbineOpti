@@ -41,7 +41,6 @@ function extractData(cfd_model,blade_model)
 %	......          ......		......		.......
 %	......          ......		......		.......
 %
-% J Bergh, 2014
 
 % Set data file names and initialise start column variable
 data_planes = {'x2'; 'x3'; 'x4'}; 

@@ -24,8 +24,7 @@ function [meshstatus,cfdstatus] = runModel(blade_type,iga,resource_model,GUIhand
 %
 % Output:
 %   null
-%
-% J Bergh, 2014
+
 
 % Load gui handle data
 if (nargin > 3)
