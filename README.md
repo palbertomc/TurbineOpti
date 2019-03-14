@@ -8,13 +8,13 @@ The optimization approach is based on the so-called DACE (Design of Computer Exp
 
 Currently, the scripts are designed for used with the following 3rd party software:
 
-* Base geometry generation (Gambit)
-* Mesh generation (Ansys ICEMCFD Rel 12)
-* CFD solver (Ansys Fluent Rel 12)
+* Base geometry generation (Gambit&trade;)
+* Mesh generation (Ansys ICEMCFD&trade; Rel 12)
+* CFD solver (Ansys Fluent&trade; Rel 12)
 
 but it should not be difficult to subsitute alternative providers as required. 
 
-The software has already been integrated with OpenFOAM but these scripts are not included at this stage. Please contact the author(s) if you are interested in obtaining these. 
+The software has already been integrated with OpenFOAM&trade; but these scripts are not included at this stage. Please contact the author(s) if you are interested in obtaining these. 
 
 ## Running the code
 The code can be run with a GUI or headlessly. Both start up scripts are included. 
@@ -22,7 +22,7 @@ The code can be run with a GUI or headlessly. Both start up scripts are included
 * `TurbineOpti.m -> GUI version`
 * `TurbineOpti_nogui.m -> headless version`
 
-Currently the code also requires the use of the Matlab Parallel Toolbox to accelerate the model fitting / optimization sub-procedures, however the use of the `parloop` structures are reasonably sparse and are trivial to remove if the toolbox is not available.
+Currently the code also requires the use of the Matlab&trade; Parallel Toolbox to accelerate the model fitting / optimization sub-procedures, however the use of the `parloop` structures are reasonably sparse and are trivial to remove if the toolbox is not available.
 
 ## Literature
 This code was used as the basis of the designs produced for:
