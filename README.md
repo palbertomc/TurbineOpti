@@ -24,6 +24,9 @@ The code can be run with a GUI or headlessly. Both start up scripts are included
 
 Currently the code also requires the use of the Matlab&trade; Parallel Toolbox to accelerate the model fitting / optimization sub-procedures, however the use of the `parloop` structures are reasonably sparse and are trivial to remove if the toolbox is not available.
 
+### Issues
+Its possible that some scripts may be missing initially from this repository, so please log an issue or contact the author(s) should you find this. Thank you!
+
 ## Literature
 This code was used as the basis of the designs produced for:
 
