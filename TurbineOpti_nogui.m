@@ -86,8 +86,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Kriging model parameters
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-handles.kriging_data_dir = 'XY_gen_150.mat';
-handles.kriging_theta_dir = 'thetas_gen_150.mat';
+handles.kriging_data_dir = 'XY.mat';
+handles.kriging_theta_dir = 'thetas.mat';
 handles.variogram_type = 'Gaussian'; %'Exponential'
 
 handles.optimiseMLEtype = 'DE'; %'GA'
