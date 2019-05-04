@@ -381,10 +381,10 @@ set(handles.edit19,'String','25');
 set(handles.edit20,'String','86431');
 set(handles.edit21,'String','-1.67');
 set(handles.edit22,'String','k-omega SST');
-set(handles.edit1,'String','/home/jonathan/Dropbox/linux_code_gui/');
-set(handles.edit4,'String','/home/jonathan/Desktop/test/');
-set(handles.edit2,'String','/home/jonathan/Dropbox/linux_code_gui/turbine_data/');
-set(handles.edit3,'String','/home/jonathan/Dropbox/linux_code_gui/reference/');
+set(handles.edit1,'String','/home/linux_code_gui/');
+set(handles.edit4,'String','/home/test/');
+set(handles.edit2,'String','/home/turbine_data/');
+set(handles.edit3,'String','/home/reference/');
 set(handles.edit6,'String','45');
 set(handles.edit7,'String','1');
 set(handles.edit8,'String','0.5');
@@ -394,7 +394,7 @@ set(handles.edit28,'String','150');
 set(handles.edit29,'String','0');
 set(handles.edit39,'String','1');
 set(handles.edit30,'String','100');
-set(handles.edit40,'String','jonathan');
+set(handles.edit40,'String','user');
 set(handles.edit42,'String','16');
 set(handles.edit41,'String','1');
 set(handles.edit31,'String','');
@@ -1071,7 +1071,7 @@ if (strcmp(handles.optimiser_type,'DE') == 1)
 
         if ((meshstatus == 1) || (cfdstatus == 1))
             [~,hostname] = system('hostname');
-            sendMail('bergh.jonathan@gmail.com','Mesh or CFD failed',sprintf('Either the mesher or CFD run has failed on %s',hostname));
+            sendMail('userEmail@mail.com','Mesh or CFD failed',sprintf('Either the mesher or CFD run has failed on %s',hostname));
             set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
             fprintf('\nManually create mesh and/or run CFD simulation\n');
             pause;
@@ -1081,7 +1081,7 @@ if (strcmp(handles.optimiser_type,'DE') == 1)
         
         if (unsteady == 1)    
             [~,hostname] = system('hostname');
-            sendMail('bergh.jonathan@gmail.com','UNSTEADINESS DETECTED',sprintf('CFD run has produced an unsteady result on %s',hostname));
+            sendMail('userEmail@mail.com','UNSTEADINESS DETECTED',sprintf('CFD run has produced an unsteady result on %s',hostname));
             set(handles.txtInfo,'String','NB. CFD run has produced an unsteady result - please check workspace');
             fprintf('\nPlease manually inspect unsteady CFD result\n');
             pause;
@@ -1413,7 +1413,7 @@ if (handles.hifilocaloptimisation == 1)
         [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga+count/10,resource_model,GUIhandles);
 
         if ((meshstatus == 1) || (cfdstatus == 1))
-            sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+            sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
             set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
             fprintf('\nManually create mesh and/or run CFD simulation\n');
             pause;
@@ -1483,7 +1483,7 @@ while (~(converged) && ~(diverged))
         [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga,resource_model,GUIhandles);
 
         if ((meshstatus == 1) || (cfdstatus == 1))
-            sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+            sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
             set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
             fprintf('\nManually create mesh and/or run CFD simulation\n');
             pause;
@@ -1556,7 +1556,7 @@ while (~(converged) && ~(diverged))
            [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga,resource_model,GUIhandles);
 
            if ((meshstatus == 1) || (cfdstatus == 1))
-                sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+                sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
                 set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
                 fprintf('\nManually create mesh and/or run CFD simulation\n');
                 pause;
@@ -1654,7 +1654,7 @@ while (~(converged) && ~(diverged))
             [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga,resource_model,GUIhandles);
 
             if ((meshstatus == 1) || (cfdstatus == 1))
-                sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+                sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
                 set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
                 fprintf('\nManually create mesh and/or run CFD simulation\n');
                 pause;
@@ -1732,7 +1732,7 @@ while (~(converged) && ~(diverged))
                     [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga+count/10,resource_model,GUIhandles);
 
                     if ((meshstatus == 1) || (cfdstatus == 1))
-                        sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+                        sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
                         set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
                         fprintf('\nManually create mesh and/or run CFD simulation\n');
                         pause;
@@ -1809,7 +1809,7 @@ while (~(converged) && ~(diverged))
             [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga,resource_model,GUIhandles);
 
             if ((meshstatus == 1) || (cfdstatus == 1))
-                sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+                sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
                 set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
                 fprintf('\nManually create mesh and/or run CFD simulation\n');
                 pause;
@@ -1883,7 +1883,7 @@ while (~(converged) && ~(diverged))
                     [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga+count/10,resource_model,GUIhandles);
 
                     if ((meshstatus == 1) || (cfdstatus == 1))
-                        sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+                        sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
                         set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
                         fprintf('\nManually create mesh and/or run CFD simulation\n');
                         pause;
@@ -2023,7 +2023,7 @@ createGeometry8(blade_model,dir_model,resource_model,xopt,iga,GUIhandles);
 [meshstatus,cfdstatus] = runModel(blade_model.blade_type,iga,resource_model,GUIhandles);
 
 if ((meshstatus == 1) || (cfdstatus == 1))
-    sendMail('bergh.jonathan@gmail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
+    sendMail('userEmail@mail.com','Mesh or CFD fail','Either the mesher or CFD run has failed');
     set(handles.txtInfo,'String','NB. Meshing or CFD has failed - please check workspace');
     fprintf('\nManually create mesh and/or run CFD simulation\n');
     pause;

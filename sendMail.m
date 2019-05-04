@@ -28,8 +28,8 @@ function sendMail(receipient,subject,message)
 
 
 % User account and password
-mail = 'bergh.jonathan@gmail.com';
-password = 'chislehurst2';
+mail = 'userMail@mail.com';
+password = 'password';
 
 % Set up Gmail SMTP service.
 setpref('Internet','E_mail',mail);
